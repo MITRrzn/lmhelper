@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\Grout;
+use App\Models\Grouts;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -15,7 +15,7 @@ class GroutController extends AdminController
      *
      * @var string
      */
-    protected $title = 'Grout';
+    protected $title = 'Grouts';
 
     /**
      * Make a grid builder.
@@ -24,26 +24,14 @@ class GroutController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new Grout());
-
-        
+        $grid = new Grid(new Grouts());
 
         $grid->column('id', __('Id'));
-        $grid->column('article', __('Article'));
-        $grid->column('name', __('Name'));
-        $grid->column('color', __('Color'));
-        $grid->column('img_pth', __('Img pth'));
-        // $grid->column('show', __('Show'));
-        
-        $grid->column('show')->switch();
-
-        // set text, color, and stored values
-        // $states = [
-        //     'on' => ['value' => 1, 'text' => 'open', 'color' => 'primary'],
-        //     'off' => ['value' => 2, 'text' => 'close', 'color' => 'default'],
-        // ];
-        // $grid->column('show')->switch($states);
-
+        $grid->column('article', __('ЛМ код'));
+        $grid->column('name', __('Наименование'));
+        $grid->column('color', __('Цвет'));
+        $grid->column('plant', __('Производитель'));
+        $grid->column('Show')->switch();
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 
@@ -58,13 +46,13 @@ class GroutController extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(Grout::findOrFail($id));
+        $show = new Show(Grouts::findOrFail($id));
 
         $show->field('id', __('Id'));
         $show->field('article', __('Article'));
         $show->field('name', __('Name'));
         $show->field('color', __('Color'));
-        $show->field('img_pth', __('Img pth'));
+        $show->field('plant', __('Производитель'));
         $show->field('show', __('Show'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
@@ -79,13 +67,12 @@ class GroutController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new Grout());
+        $form = new Form(new Grouts());
 
         $form->number('article', __('Article'));
         $form->text('name', __('Name'));
         $form->text('color', __('Color'));
-        $form->url('img_pth', __('Img pth'));
-        $form->switch('show', __('Show'));
+        $form->switch('show', __('Show'))->default(1);
 
         return $form;
     }

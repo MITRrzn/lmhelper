@@ -18,8 +18,8 @@ class CreateGroutsTable extends Migration
             $table->integer('article');
             $table->string('name');
             $table->string('color');
-            $table->string('img_pth');
-            $table->boolean('show');
+            $table->string('plant');
+            $table->boolean('show')->default('1');
             $table->timestamps();
         });
     }

@@ -26,10 +26,9 @@ Route::get('/', function () {
     $grout = App\Models\Grout::all();
     
 
-    return view('test',['name'=>$name, 'grout'=>$grout]);
+    return view('main',['name'=>$name, 'grout'=>$grout]);
 });
 
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/auth', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
