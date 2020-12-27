@@ -11,3 +11,11 @@ body {
   .burger{
     font-size: 60px;
   }
+
+  img{
+      width: 100px;
+  }
+
+  .srch-btn{
+      width: 100%;
+  }

@@ -18,15 +18,21 @@ Auth::routes();
 |
 */
 
-Route::get('/', function () {
+Route::get('/', function (Request $request) {
 
     $user = Auth::user();
 
+    $find = $request->input('search');
     $name = "Roman";
-    $grout = App\Models\Grout::all();
+    $grout_all = App\Models\Grouts::all();
+
+    if ($find) {
+        $grout_all = App\Models\Grouts::where('color', 'like', '%' . $find . '%')->Paginate(10);
+    }
+   
     
 
-    return view('main',['name'=>$name, 'grout'=>$grout]);
+    return view('main',['name'=>$name, 'grout_all'=>$grout_all]);
 });
 
 
