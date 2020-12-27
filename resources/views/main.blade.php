@@ -32,7 +32,8 @@
                 <div class="srch-form col s6">
                     <form action="" method="get">
                         <input type="text" name="search" placeholder="Поиск">
-                        <button type="submit" class="btn srch-btn indigo lighten-3">Найти</button>
+                        <button type="submit" class="btn action-btn indigo lighten-3">Найти</button>
+                        <a href="/" class="btn action-btn indigo lighten-3">Сброс</a>
                     </form>
                 </div>
                 <div class="col s3"></div>
@@ -49,43 +50,60 @@
                     </ul>
                 </div>
                 <div id="ceresit" class="col s12">
+                    @isset($ceresit)
                     @foreach($ceresit as $grout)
                     {{ $grout->name }}<br>
                     @endforeach
+                    @endisset
+
                 </div>
                 <div id="litokol" class="col s12">
+                    @isset($litokol)
                     @foreach($litokol as $grout)
                     {{ $grout->name }}<br>
                     @endforeach
                     @foreach($starlike as $grout)
                     {{ $grout->name }}<br>
                     @endforeach
+                    @endisset
+
 
                 </div>
                 <div id="osnovit" class="col s12">
+                    @isset($osnovit)
                     @foreach($osnovit as $grout)
                     {{ $grout->name }}<br>
                     @endforeach
+                    @endisset
+
                 </div>
                 <div id="mapei" class="col s12">
+                    @isset($mapei)
                     @foreach($mapei as $grout)
                     {{ $grout->name }}<br>
                     @endforeach
+                    @endisset
+
                 </div>
                 <div id="axton" class="col s12">
+                    @isset($axton)
                     @foreach($axton as $grout)
                     {{ $grout->name }}<br>
                     @endforeach
+                    @endisset
+
                 </div>
             </div>
         </div>
 
 
-
+        @isset($grout_all)
         @foreach($grout_all as $grout_det)
         {{ $grout_det->name }}: {{ $grout_det->color }}<br>
         <!-- <img src="{{ $grout_det->img }}" alt="Grout image"> -->
         @endforeach
+        @endisset
+
 
 
 

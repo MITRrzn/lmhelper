@@ -16,6 +16,7 @@ body {
       width: 100px;
   }
 
-  .srch-btn{
+.action-btn{
       width: 100%;
+      margin-bottom: 6px;
   }

@@ -35,6 +35,12 @@ Route::get('/', function (Request $request) {
 
     if ($find) {
         $grout_all = App\Models\Grouts::where('color', 'like', '%' . $find . '%')->Paginate(10);
+        $starlike = NULL;
+        $litokol = NULL;
+        $ceresit = NULL;
+        $osnovit = NULL;
+        $mapei = NULL;
+        $axton = NULL;
     }
    
     
