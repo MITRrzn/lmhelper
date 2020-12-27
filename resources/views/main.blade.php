@@ -37,6 +37,47 @@
                 </div>
                 <div class="col s3"></div>
             </div>
+            <div class="row">
+                <div class="col s12">
+                    <ul class="tabs">
+                        <div class="col s2"></div>
+                        <li class="tab col s2"><a href="#ceresit">Ceresit</a></li>
+                        <li class="tab col s2"><a href="#litokol">Litokol</a></li>
+                        <li class="tab col s2"><a href="#osnovit">ОСНОВИТ</a></li>
+                        <li class="tab col s2"><a href="#mapei">MAPEI</a></li>
+                        <li class="tab col s2"><a href="#axton">MAPEI</a></li>
+                    </ul>
+                </div>
+                <div id="ceresit" class="col s12">
+                    @foreach($ceresit as $grout)
+                    {{ $grout->name }}<br>
+                    @endforeach
+                </div>
+                <div id="litokol" class="col s12">
+                    @foreach($litokol as $grout)
+                    {{ $grout->name }}<br>
+                    @endforeach
+                    @foreach($starlike as $grout)
+                    {{ $grout->name }}<br>
+                    @endforeach
+
+                </div>
+                <div id="osnovit" class="col s12">
+                    @foreach($osnovit as $grout)
+                    {{ $grout->name }}<br>
+                    @endforeach
+                </div>
+                <div id="mapei" class="col s12">
+                    @foreach($mapei as $grout)
+                    {{ $grout->name }}<br>
+                    @endforeach
+                </div>
+                <div id="axton" class="col s12">
+                    @foreach($axton as $grout)
+                    {{ $grout->name }}<br>
+                    @endforeach
+                </div>
+            </div>
         </div>
 
 
@@ -65,16 +106,8 @@
 </body>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var elems = document.querySelectorAll('.materialboxed');
-        var instances = M.Materialbox.init(elems, options);
-    });
-
-    // Or with jQuery
-
-    $(document).ready(function () {
-        $('.materialboxed').materialbox();
-    });
+    var el = document.querySelector('.tabs');
+    var instance = M.Tabs.init(el, {});
 
 </script>
 
