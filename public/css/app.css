@@ -2,6 +2,7 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+    background-color: snow;
   }
 
   main {
@@ -12,11 +13,63 @@ body {
     font-size: 60px;
   }
 
-  img{
-      width: 100px;
-  }
-
+ 
 .action-btn{
       width: 100%;
       margin-bottom: 6px;
   }
+  .cont{
+    position: sticky;
+    top: 0px;
+    z-index: 1000;
+    background-color: snow;
+  }
+.srch-cont{
+    margin-top: 60px;
+}
+
+.grout-card {
+    max-width: 20%;
+    height: 355px;
+    border: 1px solid #c5cae9 ;
+    margin-top: 10px;
+    margin-right: 30px;
+  }
+  
+  .grout-card-head {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+  }
+
+  .grout-card-img{
+      display: flex;
+      justify-content: center;
+  }
+  
+  .article {
+    color: gray;
+  }
+  
+  .copy-btn {
+    cursor: pointer;
+  }
+
+  .grout-img{
+      max-height: 230px;
+      /* max-width: 98%; */
+  }
+
+  .grout-card-info {
+    margin-left: 6px;
+  }
+  .name,
+  .color {
+    margin-bottom: 6px;
+    margin-top: 6px;
+  }
+  .grout-card-head {
+    margin-left: 6px;
+    margin-right: 6px;
+  }
+  
