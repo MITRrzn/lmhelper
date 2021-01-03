@@ -15,13 +15,17 @@
         <input type="text" name="name" placeholder="name">
         <br>
         <br>
-        <input type="text" name="plant" placeholder="plan">
+        <input type="text" name="plant" placeholder="plant">
         <br><br>
         <input type="text" name="color" placeholder="color">
         <br><br>
         <button type="submit">press me</button>
     </form>
 
+
 </body>
+<style>
+
+</style>
 
 </html>

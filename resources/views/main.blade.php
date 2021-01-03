@@ -28,15 +28,14 @@
 
         <div class="container">
             <div class="row cont">
-                <div class="col s3"></div>
-                <div class="srch-form col s6">
+
+                <div class="srch-form col s6 offset-s3">
                     <form action="" method="get">
                         <input type="text" name="search" placeholder="Поиск по цвету" value="{{ $search }}">
                         <button type="submit" class="btn action-btn indigo darken-1">Найти</button>
                         <a href="/" class="btn action-btn indigo darken-1">Сброс</a>
                     </form>
                 </div>
-                <div class="col s3"></div>
             </div>
             <div class="row">
                 <div class="col s12 tab">
@@ -46,13 +45,13 @@
                         <li class="tab col s2"><a href="#litokol">Litokol</a></li>
                         <li class="tab col s2"><a href="#osnovit">ОСНОВИТ</a></li>
                         <li class="tab col s2"><a href="#mapei">MAPEI</a></li>
-                        <li class="tab col s2"><a href="#axton">MAPEI</a></li>
+                        <li class="tab col s2"><a href="#axton">Axton</a></li>
                     </ul>
                 </div>
                 <div id="ceresit" class="col s12">
                     @isset($ceresit)
                     @foreach($ceresit as $grout)
-                    {{ $grout->name }}<br>
+                    {{ $grout->name }} - {{ $grout->color }} : <b>{{ $grout->article }}</b><br>
                     @endforeach
                     @endisset
 
@@ -60,10 +59,10 @@
                 <div id="litokol" class="col s12">
                     @isset($litokol)
                     @foreach($litokol as $grout)
-                    {{ $grout->name }}<br>
+                    {{ $grout->name }} - {{ $grout->color }}<br>
                     @endforeach
                     @foreach($starlike as $grout)
-                    {{ $grout->name }}<br>
+                    {{ $grout->name }} - {{ $grout->color }}<br>
                     @endforeach
                     @endisset
 
@@ -72,7 +71,7 @@
                 <div id="osnovit" class="col s12">
                     @isset($osnovit)
                     @foreach($osnovit as $grout)
-                    {{ $grout->name }}<br>
+                    {{ $grout->name }} - {{ $grout->color }}<br>
                     @endforeach
                     @endisset
 
@@ -80,7 +79,7 @@
                 <div id="mapei" class="col s12">
                     @isset($mapei)
                     @foreach($mapei as $grout)
-                    {{ $grout->name }}<br>
+                    {{ $grout->name }} - {{ $grout->color }}<br>
                     @endforeach
                     @endisset
 
@@ -88,7 +87,7 @@
                 <div id="axton" class="col s12">
                     @isset($axton)
                     @foreach($axton as $grout)
-                    {{ $grout->name }}<br>
+                    {{ $grout->name }} - {{ $grout->color }}<br>
                     @endforeach
                     @endisset
 
@@ -97,15 +96,14 @@
         </div>
 
         <div class="container srch-cont">
-            <div class="row">
+            <div class="row grout-cards">
                 @isset($grout_all)
                 @foreach($grout_all as $grout_det)
-                <div class="grout-card col s12">
+                <div class="grout-card col">
                     <div class="grout-card-head">
-                        <div class="article">{{ $grout_det->article }}</div>
-                        <div class="copy">
-                            <i class="material-icons copy-btn">content_copy</i>
-                        </div>
+                        <div class="article" onclick="M.toast({html: 'Скопировано', classes: 'rounded'})">{{
+                            $grout_det->article }}</div>
+
                     </div>
                     <div class="grout-card-img">
                         <img src="{{ $grout_det->img }}" alt="" class="grout-img materialboxed ">
@@ -143,17 +141,26 @@
     var el = document.querySelector('.tabs');
     var instance = M.Tabs.init(el, {});
 
-    document.addEventListener('DOMContentLoaded', function () {
-        var elems = document.querySelectorAll('.materialboxed');
-        var instances = M.Materialbox.init(elems, options);
-    });
 
-    // Or with jQuery
 
-    $(document).ready(function () {
+
+    function copyToClipboard(str) {
+        var area = document.createElement("textarea");
+        document.body.appendChild(area);
+        area.value = str;
+        area.select();
+        document.execCommand("copy");
+        document.body.removeChild(area);
+    }
+
+
+    $(document).ready(function() {
         $('.materialboxed').materialbox();
-    });
 
+        $(".article").on("click", function() {
+            copyToClipboard($(this).text());
+        });
+    });
 
 </script>
 

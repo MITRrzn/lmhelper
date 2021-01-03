@@ -22,18 +22,40 @@ class GroutController extends AdminController
      *
      * @return Grid
      */
+
+
+
     protected function grid()
     {
         $grid = new Grid(new Grouts());
 
         $grid->column('id', __('Id'));
-        $grid->column('article', __('ЛМ код'));
+        $grid->column('article', __('ЛМ код'))->filter('like');
         $grid->column('name', __('Наименование'));
         $grid->column('color', __('Цвет'));
         $grid->column('plant', __('Производитель'));
-        $grid->column('Show')->switch();
+        $grid->column('show')->switch();
+
+        // set text, color, and stored values
+        $states = [
+            'on' => ['value' => 1, 'text' => 'open', 'color' => 'primary'],
+            'off' => ['value' => 2, 'text' => 'close', 'color' => 'default'],
+        ];
+
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
+
+
+
+        $grid->filter(function ($filter) {
+
+            // Remove the default id filter
+            $filter->disableIdFilter();
+
+            // Add a column filter
+            $filter->like('article', 'LM код');
+            $filter->like('name', 'Наименование');
+        });
 
         return $grid;
     }

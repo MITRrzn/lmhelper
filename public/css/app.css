@@ -5,7 +5,7 @@ body {
     background-color: snow;
   }
 
-  main {
+main {
     flex: 1 0 auto;
   }
   
@@ -27,7 +27,11 @@ body {
 .srch-cont{
     margin-top: 60px;
 }
-
+.grout-cards{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
 .grout-card {
     max-width: 20%;
     height: 355px;
@@ -49,6 +53,7 @@ body {
   
   .article {
     color: gray;
+    cursor: pointer;
   }
   
   .copy-btn {
@@ -63,13 +68,20 @@ body {
   .grout-card-info {
     margin-left: 6px;
   }
+
   .name,
   .color {
     margin-bottom: 6px;
     margin-top: 6px;
   }
+
   .grout-card-head {
     margin-left: 6px;
     margin-right: 6px;
   }
-  
+
+  .toast{
+      background-color: #69f0ae;
+      color: black;
+  }
+
