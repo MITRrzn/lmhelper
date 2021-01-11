@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="RU">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Справочник затирок</title>
+
+    <link rel="shortcut icon" href="/storage/favico.png" type="image/png">
 
 
     <!-- JQuerry -->
@@ -25,7 +27,6 @@
 
 <body>
     <main>
-
         <div class="container">
             <div class="row cont">
 
@@ -40,7 +41,7 @@
             <div class="row">
                 <div class="col s12 tab">
                     <ul class="tabs">
-                        <div class="col s2"></div>
+
                         <li class="tab col s2"><a href="#ceresit">Ceresit</a></li>
                         <li class="tab col s2"><a href="#litokol">Litokol</a></li>
                         <li class="tab col s2"><a href="#osnovit">ОСНОВИТ</a></li>
@@ -50,45 +51,134 @@
                 </div>
                 <div id="ceresit" class="col s12">
                     @isset($ceresit)
-                    @foreach($ceresit as $grout)
-                    {{ $grout->name }} - {{ $grout->color }} : <b>{{ $grout->article }}</b><br>
-                    @endforeach
+                    <table class="highlight">
+                        <thead>
+                            <tr>
+                                <th>Название</th>
+                                <th>Цвет</th>
+                                <th>LM код</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach($ceresit as $grout)
+                            <tr>
+                                <td>{{ $grout->name }}</td>
+                                <td>{{ $grout->color }}</td>
+                                <td class="article" onclick="M.toast({html: 'Скопировано', classes: 'rounded'})"><b>{{
+                                        $grout->article }}</b></td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                     @endisset
 
                 </div>
                 <div id="litokol" class="col s12">
                     @isset($litokol)
-                    @foreach($litokol as $grout)
-                    {{ $grout->name }} - {{ $grout->color }}<br>
-                    @endforeach
-                    @foreach($starlike as $grout)
-                    {{ $grout->name }} - {{ $grout->color }}<br>
-                    @endforeach
+                    <table class="highlight">
+                        <thead>
+                            <tr>
+                                <th>Название</th>
+                                <th>Цвет</th>
+                                <th>LM код</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach($litokol as $grout)
+                            <tr>
+                                <td>{{ $grout->name }}</td>
+                                <td>{{ $grout->color }}</td>
+                                <td class="article"><b>{{ $grout->article }}</b></td>
+                            </tr>
+                            @endforeach
+                            @foreach($starlike as $grout)
+                            <tr>
+                                <td>{{ $grout->name }}</td>
+                                <td>{{ $grout->color }}</td>
+                                <td class="article" onclick="M.toast({html: 'Скопировано', classes: 'rounded'})"><b>{{
+                                        $grout->article }}</b></td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                     @endisset
 
 
                 </div>
                 <div id="osnovit" class="col s12">
                     @isset($osnovit)
-                    @foreach($osnovit as $grout)
-                    {{ $grout->name }} - {{ $grout->color }}<br>
-                    @endforeach
+                    <table class="highlight">
+                        <thead>
+                            <tr>
+                                <th>Название</th>
+                                <th>Цвет</th>
+                                <th>LM код</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach($osnovit as $grout)
+                            <tr>
+                                <td>{{ $grout->name }}</td>
+                                <td>{{ $grout->color }}</td>
+                                <td class="article" onclick="M.toast({html: 'Скопировано', classes: 'rounded'})"><b>{{
+                                        $grout->article }}</b></td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                     @endisset
 
                 </div>
                 <div id="mapei" class="col s12">
                     @isset($mapei)
-                    @foreach($mapei as $grout)
-                    {{ $grout->name }} - {{ $grout->color }}<br>
-                    @endforeach
+                    <table class="highlight">
+                        <thead>
+                            <tr>
+                                <th>Название</th>
+                                <th>Цвет</th>
+                                <th>LM код</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach($mapei as $grout)
+                            <tr>
+                                <td>{{ $grout->name }}</td>
+                                <td>{{ $grout->color }}</td>
+                                <td class="article" onclick="M.toast({html: 'Скопировано', classes: 'rounded'})"><b>{{
+                                        $grout->article }}</b></td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                     @endisset
 
                 </div>
                 <div id="axton" class="col s12">
                     @isset($axton)
-                    @foreach($axton as $grout)
-                    {{ $grout->name }} - {{ $grout->color }}<br>
-                    @endforeach
+                    <table class="highlight">
+                        <thead>
+                            <tr>
+                                <th>Название</th>
+                                <th>Цвет</th>
+                                <th>LM код</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach($axton as $grout)
+                            <tr>
+                                <td>{{ $grout->name }}</td>
+                                <td>{{ $grout->color }}</td>
+                                <td class="article" onclick="M.toast({html: 'Скопировано', classes: 'rounded'})"><b>{{
+                                        $grout->article }}</b></td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                     @endisset
 
                 </div>
@@ -154,12 +244,14 @@
     }
 
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('.materialboxed').materialbox();
 
-        $(".article").on("click", function() {
+        $(".article").on("click", function () {
             copyToClipboard($(this).text());
         });
+
+
     });
 
 </script>

@@ -21,17 +21,16 @@ Auth::routes();
 Route::get(
     '/',
     function (Request $request) {
-
         $find = $request->input('search');
         $name = "Roman";
         $grout_all = null;
         $search = null;
-        $starlike = App\Models\Grouts::where('name', 'like', '%star%')->paginate(100);
-        $litokol = App\Models\Grouts::where('name', 'like', '%lito%')->Paginate(100);
-        $ceresit = App\Models\Grouts::where('plant', 'like', '%хенкель%')->Paginate(100);
-        $osnovit = App\Models\Grouts::where('plant', 'like', '%седрус%')->Paginate(100);
-        $mapei = App\Models\Grouts::where('plant', 'like', '%мапеи%')->Paginate(100);
-        $axton = App\Models\Grouts::where('name', 'like', '%axton%')->Paginate(100);
+        $starlike = App\Models\Grouts::where('name', 'like', '%star%')->get();
+        $litokol = App\Models\Grouts::where('name', 'like', '%lito%')->get();
+        $ceresit = App\Models\Grouts::where('plant', 'like', '%хенкель%')->get();
+        $osnovit = App\Models\Grouts::where('plant', 'like', '%седрус%')->get();
+        $mapei = App\Models\Grouts::where('plant', 'like', '%мапеи%')->get();
+        $axton = App\Models\Grouts::where('name', 'like', '%axton%')->get();
 
         if (isset($_GET["search"])) {
             $search = $_GET["search"];
@@ -54,7 +53,7 @@ Route::get(
                 'name' => $name, 'grout_all' => $grout_all,
                 'litokol' => $litokol, 'ceresit' => $ceresit,
                 'osnovit' => $osnovit, 'mapei' => $mapei, 'axton' => $axton,
-                'starlike' => $starlike, 'search' => $search
+                'starlike' => $starlike, 'search' => $search,
             ]
         );
     }
