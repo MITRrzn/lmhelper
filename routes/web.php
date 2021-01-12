@@ -77,4 +77,6 @@ Route::get(
     }
 );
 
+Route::get('/orders', 'App\Http\Controllers\OrdersController@show');
+
 Route::get('/auth', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

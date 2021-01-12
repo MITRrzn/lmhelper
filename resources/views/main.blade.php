@@ -1,6 +1,9 @@
 <!DOCTYPE html>
-<html lang="RU">
 
+
+
+<html lang="RU">
+@section('head')
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,9 +27,25 @@
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
 </head>
-
+@show
+@section('body')
 <body>
+    @section('main')
     <main>
+
+        @section('dropdown')
+        <a class='dropdown-trigger btn indigo darken-1 menu-ico' href='#' data-target='dropdown1'>
+            Menu
+        </a>
+
+        <!-- Dropdown Structure -->
+        <ul id='dropdown1' class='dropdown-content'>
+            <li><a href="/"><i class="material-icons">home</i>Главная</a></li>
+            <li><a href="/orders"><i class="material-icons">star_half</i>Заказы</a></li>
+        </ul>
+        @show
+
+        @section('search')
         <div class="container">
             <div class="row cont">
 
@@ -184,7 +203,9 @@
                 </div>
             </div>
         </div>
+        @show
 
+        @section('serch-result')
         <div class="container srch-cont">
             <div class="row grout-cards">
                 @isset($grout_all)
@@ -214,8 +235,12 @@
                 @endisset
             </div>
         </div>
+        @show
 
     </main>
+    @show
+
+    @section('footer')
     <footer class="page-footer indigo darken-2">
 
         <div class="footer-copyright indigo darken-4">
@@ -224,9 +249,11 @@
             </div>
         </div>
     </footer>
+    @show
 
 </body>
-
+@show
+@section('script')
 <script>
     var el = document.querySelector('.tabs');
     var instance = M.Tabs.init(el, {});
@@ -244,16 +271,17 @@
     }
 
 
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('.materialboxed').materialbox();
 
-        $(".article").on("click", function () {
+        $(".article").on("click", function() {
             copyToClipboard($(this).text());
         });
 
+        $('.dropdown-trigger').dropdown();
 
     });
 
 </script>
-
+@show
 </html>
