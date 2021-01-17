@@ -4,6 +4,7 @@
 
 <html lang="RU">
 @section('head')
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,7 +30,10 @@
 </head>
 @show
 @section('body')
+
 <body>
+
+
     @section('main')
     <main>
 
@@ -40,9 +44,12 @@
 
         <!-- Dropdown Structure -->
         <ul id='dropdown1' class='dropdown-content'>
-            <li><a href="/"><i class="material-icons">home</i>Главная</a></li>
-            <li><a href="/orders"><i class="material-icons">star_half</i>Заказы</a></li>
+            <li><a href="{{ route('grout_page') }}"><i class="material-icons">home</i>Главная</a></li>
+            <li><a href="{{ route('orders') }}"><i class="material-icons">star_half</i>Заказы</a></li>
         </ul>
+        @show
+        @section('content')
+
         @show
 
         @section('search')
@@ -84,8 +91,9 @@
                             <tr>
                                 <td>{{ $grout->name }}</td>
                                 <td>{{ $grout->color }}</td>
-                                <td class="article" onclick="M.toast({html: 'Скопировано', classes: 'rounded'})"><b>{{
-                                        $grout->article }}</b></td>
+                                <td class="article" onclick="M.toast({html: 'Скопировано', classes: 'rounded'})">
+                                    <b>{{$grout->article }}</b>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -271,10 +279,10 @@
     }
 
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('.materialboxed').materialbox();
 
-        $(".article").on("click", function() {
+        $(".article").on("click", function () {
             copyToClipboard($(this).text());
         });
 
@@ -284,4 +292,5 @@
 
 </script>
 @show
+
 </html>

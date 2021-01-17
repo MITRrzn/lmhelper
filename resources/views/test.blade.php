@@ -8,7 +8,8 @@
 </head>
 
 <body>
-    <form action="" method="get">
+    <form action="/add" method="post">
+        @csrf
         <input type="number" name="article" placeholder="article">
         <br>
         <br>
@@ -22,7 +23,9 @@
         <button type="submit">press me</button>
     </form>
 
-
+    @foreach($litokol as $elem)
+    {{ $elem->name }}<br>
+    @endforeach
 </body>
 <style>
 
