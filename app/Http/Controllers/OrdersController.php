@@ -13,9 +13,10 @@ class OrdersController extends Controller
     {
         // phpcs:enable
         $search = null;
-        $name = "roman";
+
 
         $grouts = DB::table('grouts')->get();
+        $name = "Roman";
 
         return view(
             'orders',

@@ -7,12 +7,12 @@ use App\Http\Controllers\AddGroutController;
 
 Auth::routes();
 // phpcs:enable
-// Route::get(
-//     '/test',
-//     function () {
-//         return view('test');
-//     }
-// )->name('test');
+Route::get(
+    '/test',
+    function () {
+        return view('test');
+    }
+)->name('test');
 
 Route::get('/', 'App\Http\Controllers\GroutController@show')->name('grout_page');
 

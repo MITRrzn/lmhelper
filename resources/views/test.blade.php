@@ -23,9 +23,7 @@
         <button type="submit">press me</button>
     </form>
 
-    @foreach($litokol as $elem)
-    {{ $elem->name }}<br>
-    @endforeach
+
 </body>
 <style>
 

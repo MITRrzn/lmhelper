@@ -66,14 +66,24 @@
             </div>
             <div class="row">
                 <div class="col s12 tab">
-                    <ul class="tabs">
+                    @if(@isset($grout_all))
 
+                    <ul class="tabs">
+                        <li class="tab col s2"><a href="/#ceresit">Ceresit</a></li>
+                        <li class="tab col s2"><a href="/#litokol">Litokol</a></li>
+                        <li class="tab col s2"><a href="/#osnovit">ОСНОВИТ</a></li>
+                        <li class="tab col s2"><a href="/#mapei">MAPEI</a></li>
+                        <li class="tab col s2"><a href="/#axton">Axton</a></li>
+                    </ul>
+                    @else
+                    <ul class="tabs">
                         <li class="tab col s2"><a href="#ceresit">Ceresit</a></li>
                         <li class="tab col s2"><a href="#litokol">Litokol</a></li>
                         <li class="tab col s2"><a href="#osnovit">ОСНОВИТ</a></li>
                         <li class="tab col s2"><a href="#mapei">MAPEI</a></li>
                         <li class="tab col s2"><a href="#axton">Axton</a></li>
                     </ul>
+                    @endif
                 </div>
                 <div id="ceresit" class="col s12">
                     @isset($ceresit)
@@ -263,9 +273,10 @@
 @show
 @section('script')
 <script>
+    @if(!isset($grout_all))
     var el = document.querySelector('.tabs');
     var instance = M.Tabs.init(el, {});
-
+    @endif
 
 
 
@@ -279,10 +290,10 @@
     }
 
 
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('.materialboxed').materialbox();
 
-        $(".article").on("click", function () {
+        $(".article").on("click", function() {
             copyToClipboard($(this).text());
         });
 
