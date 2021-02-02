@@ -18,10 +18,11 @@ class CreateOrdersTable extends Migration
             function (Blueprint $table) {
                 $table->increments('id')->unique();
                 $table->string('customer_name');
-                $table->integer('customer_phone');
-                $table->integer('shipment_num');
+                $table->string('customer_phone');
+                $table->integer('article');
+                $table->bigInteger('shipment_num');
                 $table->string('status');
-                $table->integer('inner_order');
+                $table->bigInteger('inner_order');
                 $table->text('note');
                 $table->timestamps();
             }
