@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateOrdersTable extends Migration
 {
@@ -17,13 +18,16 @@ class CreateOrdersTable extends Migration
             'orders',
             function (Blueprint $table) {
                 $table->increments('id')->unique();
-                $table->string('customer_name');
+                $table->string('customer_name', 32);
                 $table->string('customer_phone');
                 $table->integer('article');
-                $table->bigInteger('shipment_num');
-                $table->string('status');
-                $table->bigInteger('inner_order');
-                $table->text('note');
+                $table->integer('quantity');
+                $table->bigInteger('order_number')->nullable(); //Возможно сдеть integer и вывод по формату
+                $table->bigInteger('shipment_num')->nullable();
+                $table->string('status')->default("заказать");
+                $table->bigInteger('inner_order')->nullable();
+                $table->dateTime('date')->default(DB::raw('CURRENT_TIMESTAMP'));
+                $table->text('note')->nullable();
                 $table->timestamps();
             }
         );

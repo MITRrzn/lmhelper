@@ -20,4 +20,6 @@ Route::post('/add', 'App\Http\Controllers\AddGroutController@addGrout')->name('a
 
 Route::get('/orders', 'App\Http\Controllers\OrdersController@show')->name('orders');
 
+Route::post('/addorder', 'App\Http\Controllers\OrdersController@addOrder')->name('addorder');
+
 Route::get('/auth', [App\Http\Controllers\HomeController::class, 'index'])->name('home'); // phpcs:disable

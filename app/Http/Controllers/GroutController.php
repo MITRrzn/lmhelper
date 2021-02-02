@@ -13,6 +13,7 @@ class GroutController extends Controller
         $find = $request->input('search');
         $grout_all = null;
         $search = null;
+        $page_title = "Затирки";
 
         $ceresit = DB::table('grouts')->where('plant', 'like', '%хенкель%')->get();
         $starlike = DB::table('grouts')->where('name', 'like', '%star%')->get();
@@ -46,7 +47,7 @@ class GroutController extends Controller
                 'grout_all' => $grout_all,
                 'litokol' => $litokol, 'ceresit' => $ceresit,
                 'osnovit' => $osnovit, 'mapei' => $mapei, 'axton' => $axton,
-                'starlike' => $starlike, 'search' => $search,
+                'starlike' => $starlike, 'search' => $search, 'title' => $page_title
             ]
         );
     }

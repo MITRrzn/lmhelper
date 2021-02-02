@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Справочник затирок</title>
+    <title>{{ $title }}</title>
 
     <link rel="shortcut icon" href="/storage/favico.png" type="image/png">
 
@@ -27,6 +27,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
+
+    <script src="{{ asset('js/phoneMask.js') }}"></script>
 </head>
 @show
 @section('body')
@@ -35,6 +37,8 @@
 
 
     @section('main')
+
+
     <main>
 
         @section('dropdown')
@@ -44,10 +48,13 @@
 
         <!-- Dropdown Structure -->
         <ul id='dropdown1' class='dropdown-content'>
-            <li><a href="{{ route('grout_page') }}"><i class="material-icons">home</i>Главная</a></li>
+            <li><a href="{{ route('grout_page') }}"><i class="material-icons">home</i>Затирки</a></li>
             <li><a href="{{ route('orders') }}"><i class="material-icons">star_half</i>Заказы</a></li>
         </ul>
         @show
+        <div class="header">
+            <h3>{{ $title }}</h3>
+        </div>
         @section('content')
 
         @show
@@ -263,7 +270,7 @@
 
         <div class="footer-copyright indigo darken-4">
             <div class="container">
-                © 2020
+                &copy 2020
             </div>
         </div>
     </footer>

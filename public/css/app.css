@@ -8,11 +8,26 @@ body {
 main {
     flex: 1 0 auto;
   }
+
+  input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none; // Yeah, yeah everybody write about it
+}
+
+input[type='number'],
+input[type="number"]:hover,
+input[type="number"]:focus {
+    appearance: none;
+    -moz-appearance: textfield;
+}
   
   .burger{
     font-size: 60px;
   }
 
+  .srch-form{
+      margin-top: 50px;
+  }
  
 .action-btn{
       width: 100%;
@@ -109,4 +124,56 @@ main {
 
 tr{
     cursor: pointer;
+}
+
+.newordr{
+    width: 100%;
+    margin-top: 50px;
+}
+
+.addbtn{
+    width: 100%;
+}
+
+
+
+
+
+
+@import 'https://fonts.googleapis.com/css?family=Merriweather';
+
+.header {
+  padding: 20px 0;
+  border-bottom: 2px solid rgba(0,0,0,.05); 
+  text-align: center;
+}
+h3 {
+  font-family: 'Merriweather', serif;
+  font-size: 40px;
+  letter-spacing: 1px;
+  max-width: 320px;
+  width: 100%;
+  position: relative;
+  display: inline-block;
+  color: #465457;
+}
+.header h3:before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -25px;
+  width: 30px;
+  height: 20px;
+  border-top: 2px solid #fed57b;
+  border-left: 2px solid #fed57b;
+}
+.header h3:after {
+  content: "";
+  position: absolute;
+  bottom: -50%;
+  right: -25px;
+  width: 30px;
+  height: 20px;
+  border-bottom: 2px solid #fed57b;
+  border-right: 2px solid #fed57b;
 }
