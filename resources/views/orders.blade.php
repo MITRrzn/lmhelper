@@ -47,25 +47,26 @@
                     <label for="article">ЛМ код</label>
                 </div>
                 <div class="input-field col s6">
-                    <input placeholder="Количество" id="quantity" type="number" class="validate" name="article"
-                        id="article" min="0" max="9999" step="1" required
-                        onkeyup="this.value = this.value.replace(/[^\d]/g,'');">
+                    <input placeholder="Количество" id="quantity" type="number" class="validate" name="quantity" min="0"
+                        max="9999" step="1" required onkeyup="this.value = this.value.replace(/[^\d]/g,'');">
                     <label for="quantity">Количество</label>
                 </div>
             </div>
             <div class="row">
-                <div class="input-field col s6">
-                    <input disabled type="number" name="order_num" id="ordernum">
-                    <label for="order_num">Номер заказа</label>
+                <div class="input-field col s12">
+                    <input placeholder="Номер заказа/сметы" id="inner_order" type="number" class="validate"
+                        name="inner_order" min="0" max="999999999999" step="1" required
+                        onkeyup="this.value = this.value.replace(/[^\d]/g,'');">
+                    <label for="inner_order">Номер заказа/сметы</label>
                 </div>
-                <div class="input-field col s6">
+                <!-- <div class="input-field col s6">
                     <input disabled type="number" name="ship_num" id="shipnum">
                     <label for="ship_num">Shipment num</label>
-                </div>
+                </div> -->
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <textarea id="note" class="materialize-textarea"></textarea>
+                    <input type="text" name="note" id="note">
                     <label for="note">Заметки к заказу</label>
                 </div>
             </div>
@@ -76,15 +77,17 @@
     </div>
 </div>
 
-<div class="container">
+
+<div class="container orders">
     <table>
         <thead>
             <tr>
-                <th>id</th>
-                <th>Name</th>
-                <th>Article</th>
-                <th>Status</th>
-                <th>Date</th>
+                <th>№</th>
+                <th>Имя</th>
+                <th>Телефон</th>
+                <th>Артикул</th>
+                <th>Статус</th>
+                <th>Дата создания</th>
             </tr>
         </thead>
 
@@ -96,8 +99,9 @@
                 <td>{{ $elem->customer_phone }}</td>
                 <td>{{ $elem->article }}</td>
                 <td>{{ $elem->status }}</td>
-                <td>{{ $elem->create_date }}</td>
-                <td> <a href="#"> <i class="material-icons">info_outline</i></a></td>
+                <td>{{ $elem->date }}</td>
+                <td> <a href="/orders/{{ $elem->id }}"> <i class="material-icons">info_outline</i></a></td>
+                <td> <a href="/delete/{{ $elem->id }}"> <i class="material-icons close">close</i></a></td>
             </tr>
             @endforeach
         </tbody>
@@ -120,6 +124,8 @@
     $(function () {
         $("#phone").mask("+7 (999) 999-99-99");
     });
+
+
 
 </script>
 

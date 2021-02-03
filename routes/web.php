@@ -22,4 +22,24 @@ Route::get('/orders', 'App\Http\Controllers\OrdersController@show')->name('order
 
 Route::post('/addorder', 'App\Http\Controllers\OrdersController@addOrder')->name('addorder');
 
+Route::get(
+    '/orders/{id}',
+    function ($id) {
+        $order = App\Models\Orders::find($id);
+
+        $page_title = "Информация о заказе ";
+        $search = null;
+
+
+        return view(
+            'order-detail',
+            [
+                'order' => $order, 'title' => $page_title, 'search' => $search,
+            ]
+        );
+    }
+);
+
+Route::get('/delete/{id}', 'App\Http\Controllers\OrdersController@deleteOrder')->name('deleteOrder');
+
 Route::get('/auth', [App\Http\Controllers\HomeController::class, 'index'])->name('home'); // phpcs:disable

@@ -17,7 +17,7 @@ class GroutController extends Controller
 
         $ceresit = DB::table('grouts')->where('plant', 'like', '%хенкель%')->get();
         $starlike = DB::table('grouts')->where('name', 'like', '%star%')->get();
-        $litokol = DB::table('grouts')->where('name', 'like', '%lito%')->get();
+        $litokol = DB::table('grouts')->where('name', 'like', '%lito%')->orderBy('name', 'asc')->get();
         $osnovit = DB::table('grouts')->where('plant', 'like', '%седрус%')->get();
         $mapei = DB::table('grouts')->where('plant', 'like', '%мапеи%')->get();
         $axton = DB::table('grouts')->where('name', 'like', '%axton%')->get();

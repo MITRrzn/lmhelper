@@ -19,8 +19,8 @@ class CreateProductsTable extends Migration
                 $table->increments('id')->unique();
                 $table->integer('article');
                 $table->string('name');
-                $table->integer('EAN');
-                $table->integer('plant_id');
+                $table->bigInteger('EAN');
+                $table->bigInteger('plant_id');
                 $table->string('plant_name');
                 $table->integer('product_id')->unsigned();
                 $table->foreign('product_id')->references('id')->on('orders');

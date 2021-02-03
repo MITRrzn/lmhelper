@@ -144,7 +144,6 @@ tr{
 
 .header {
   padding: 20px 0;
-  border-bottom: 2px solid rgba(0,0,0,.05); 
   text-align: center;
 }
 h3 {
@@ -177,3 +176,21 @@ h3 {
   border-bottom: 2px solid #fed57b;
   border-right: 2px solid #fed57b;
 }
+
+.orders{
+    margin-top: 50px;
+}
+
+.order-cont{
+    margin-top: 80px;
+}
+
+.close{
+    color: #bb2124;
+}
+
+
+@media print {
+    #print {
+        -webkit-print-color-adjust: exact; 
+    }
