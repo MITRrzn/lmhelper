@@ -15,7 +15,8 @@ class OrdersController extends Controller
         // phpcs:enable
         $search = null;
 
-        $all = DB::table('orders')->paginate(50);
+        $all = DB::table('orders')->orderBy('status', 'desc')->paginate(50);
+
 
 
 

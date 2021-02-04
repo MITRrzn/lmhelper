@@ -15,6 +15,8 @@ class Orders extends Model
         'status', 'inner_order', 'note'
     ];
 
+
+
     public function products()
     {
         return $this->hasMany('App\Models\products');

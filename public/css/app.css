@@ -131,7 +131,7 @@ tr{
     margin-top: 50px;
 }
 
-.addbtn{
+.addbtn, .actionbtn{
     width: 100%;
 }
 

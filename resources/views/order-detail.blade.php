@@ -16,6 +16,8 @@
 @section('content')
 {{-- content here --}}
 
+
+
 <div class="container order-cont">
     <div class="row">
         <div class="info col s6">
@@ -92,6 +94,25 @@
             <label for="note">Коментарии</label>
         </div>
     </div>
+    <hr>
+    <div class="row">
+        <div class="info col s12">
+            <a href="#" class="btn actionbtn">Обновить информацию</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="info col s12">
+
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header"><i class="material-icons close pulse">close</i>Удаление заказа</div>
+                    <div class="collapsible-body">
+                        <a href="/delete/{{ $order->id }}" class="btn actionbtn red darken-4">Удалить заказ</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
 
 
@@ -99,8 +120,9 @@
 
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('select').formSelect();
+        $('.collapsible').collapsible();
     });
 
 </script>
