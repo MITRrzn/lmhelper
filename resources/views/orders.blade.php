@@ -54,10 +54,6 @@
                     <input placeholder="Номер заказа/сметы" data-length="12" id="inner_order" type="number" class="validate count" name="inner_order" min="0" max="999999999999" step="1" required onkeyup="this.value = this.value.replace(/[^\d]/g,'');">
                     <label for="inner_order">Номер заказа/сметы</label>
                 </div>
-                <!-- <div class="input-field col s6">
-                    <input disabled type="number" name="ship_num" id="shipnum">
-                    <label for="ship_num">Shipment num</label>
-                </div> -->
             </div>
             <div class="row">
                 <div class="input-field col s12">
@@ -113,8 +109,8 @@
                 </td>
 
 
-                <td>{{ $elem->date }}</td>
-                <td> <a href="/orders/{{ $elem->id }}"> <i class="material-icons">info_outline</i></a></td>
+                <td>{{ Carbon\Carbon::parse($elem->date)->format('d.m.Y') }}</td>
+                <td> <a href="/orders/{{ $elem->id }}_{{ $elem->article }}_{{ $elem->inner_order }}"> <i class="material-icons">info_outline</i></a></td>
             </tr>
             @endforeach
         </tbody>

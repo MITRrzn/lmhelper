@@ -10,6 +10,9 @@
 <body>
     <form action="/add" method="post">
         @csrf
+        <input type="number" name="id" placeholder="ID">
+        <br>
+        <br>
         <input type="number" name="article" placeholder="article">
         <br>
         <br>
@@ -18,15 +21,10 @@
         <br>
         <input type="text" name="plant" placeholder="plant">
         <br><br>
-        {{-- <input type="text" name="color" placeholder="color"> --}}
-        <input class="with-gap" name="color" type="radio" />
-        <span>Red</span>
-        <input class="with-gap" name="color" type="radio" />
-        <span>blue</span>
-        <input class="with-gap" name="color" type="radio" value="green" />
-        <span>green</span>
+        <input type="text" name="color" placeholder="color">
         <br><br>
         <button type="submit">press me</button>
+        <a href="/updateGrout">Update</a>
     </form>
 
 

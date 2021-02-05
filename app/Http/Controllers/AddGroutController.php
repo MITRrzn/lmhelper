@@ -26,4 +26,17 @@ class AddGroutController extends Controller
 
         return redirect('/test');
     }
+
+    public function updateGrout(Request $request)
+    {
+        $id = $request->input('id');
+        $article = $request->input('article');
+        $name = $request->input('name');
+        $plant = $request->input('plant');
+        $color = $request->input('color');
+
+        DB::table('grouts')
+            ->where('id', 1)
+            ->update(['color' => $color]);
+    }
 }
