@@ -66,11 +66,14 @@ class OrdersController extends Controller
             ->join('products', 'orders.article', '=', 'products.article')
             ->select(
                 'orders.article',
+                'orders.inner_order',
+                'orders.shipment_num',
+                'orders.order_number',
                 'products.article',
                 'products.name',
                 'products.EAN',
                 'products.plant_id',
-                'products.plant_name'
+                'products.plant_name',
             )
             ->where('orders.article', '=', $article)
             ->where('orders.inner_order', '=', $inner_order)
@@ -94,28 +97,44 @@ class OrdersController extends Controller
 
     public function updateOrder(Request $request, $id) // phpcs:disable
     { // phpcs:enable
-        $name = $request->input('name');
-        $phone = $request->input('phone');
-        $article = $request->input('article');
-        $quantity = $request->input('quantity');
-        $order_num = $request->input('order_num');
-        $shipment_num = $request->input('shipment_num');
-        $inner = $request->input('inner_order');
-        $note = $request->input('note');
+        $order = Orders::find($id);
+        $order->status = $request->input('status');
+        $order->customer_name = $request->input('name');
+        $order->customer_phone = request('phone');
+        $order->article = request('article');
+        $order->quantity = request('quantity');
+        $order->order_number = request('order_num');
+        $order->shipment_num = request('shipment_num');
+        $order->inner_order = request('inner_order');
+        $order->note = request('note');
 
-        DB::table('orders')
-            ->where('id', '=', $id)
-            ->update(
-                [
-                    'customer_name' => $name,
-                    'customer_phone' => $phone,
-                    'article' => $article,
-                    'quantity' => $quantity,
-                    'order_number' => $order_num,
-                    'shipment_num' => $shipment_num,
-                    'inner_order' => $inner,
-                    'note' => $note,
-                ]
-            );
+        $order->save();
+
+        return redirect('/orders');
+
+
+        // $name = $request->input('name');
+        // $phone = $request->input('phone');
+        // $article = $request->input('article');
+        // $quantity = $request->input('quantity');
+        // $order_num = $request->input('order_num');
+        // $shipment_num = $request->input('shipment_num');
+        // $inner = $request->input('inner_order');
+        // $note = $request->input('note');
+
+        // DB::table('orders')
+        //     ->where('id', '=', $id)
+        //     ->update(
+        //         [
+        //             'customer_name' => $name,
+        //             'customer_phone' => $phone,
+        //             'article' => $article,
+        //             'quantity' => $quantity,
+        //             'order_number' => $order_num,
+        //             'shipment_num' => $shipment_num,
+        //             'inner_order' => $inner,
+        //             'note' => $note,
+        //         ]
+        //     );
     }
 }

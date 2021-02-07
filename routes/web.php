@@ -19,7 +19,7 @@ Route::get('/auth', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/', 'App\Http\Controllers\GroutController@show')->name('grout_page');
 
-Route::post(
+Route::get(
     '/add',
     'App\Http\Controllers\AddGroutController@addGrout'
 )
