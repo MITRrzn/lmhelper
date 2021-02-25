@@ -2,8 +2,6 @@
 // phpcs:disable
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
-use App\Http\Controllers\AddGroutController;
 use Encore\Admin\Form\Row;
 
 Auth::routes();
@@ -17,9 +15,12 @@ Route::get(
 
 Route::get('/auth', [App\Http\Controllers\HomeController::class, 'index'])->name('home'); // phpcs:disable
 
+
+//grouts routes
+
 Route::get('/', 'App\Http\Controllers\GroutController@show')->name('grout_page');
 
-Route::get(
+Route::post(
     '/add',
     'App\Http\Controllers\AddGroutController@addGrout'
 )
@@ -29,6 +30,8 @@ Route::get(
     '/updateGrout',
     'App\Http\Controllers\AddGroutController@updateGrout'
 );
+
+//orders routes
 
 Route::get(
     '/orders',
@@ -41,6 +44,8 @@ Route::post(
     'App\Http\Controllers\OrdersController@addOrder'
 )
     ->name('addorder');
+
+//order details routes
 
 Route::get(
     '/orders/{id}_{article}_{inner_order}',

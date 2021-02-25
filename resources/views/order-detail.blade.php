@@ -23,14 +23,17 @@
             <div class="info col s6">
                 Дата создания: <b>{{ Carbon\Carbon::parse($order->date)->format('d.m.Y H:m') }}</b>
                 <br>
+                Последнее обновление: <b>{{ Carbon\Carbon::parse($order->updated_at)->format('d.m.Y H:m') }}</b>
+                <br>
                 Заказ № {{ $order->id }}
             </div>
             <div class="info col s6">
                 <div class="input-field col s12">
                     <select name="status">
-                        <option value="" disabled selected>Статус: {{ $order->status }}</option>
+                        <option value="{{ $order->status }}" selected>Статус: {{ $order->status }}
+                        </option>
                         <option value="заказать">Заказать</option>
-                        <option value="заказано">Заказано</option>
+                        <option value="заказан">Заказан</option>
                         <option value="приехал">Приехал</option>
                         <option value="выдан">Выдан</option>
                     </select>
@@ -90,7 +93,7 @@
                 <label for="shipment_num">Номер отгрузки</label>
             </div>
             <div class="info col s4">
-                <input type="number" name="inner_order" id="inner_order" value="{{ $det->inner_order }}">
+                <input type="number" required name="inner_order" id="inner_order" value="{{ $det->inner_order }}">
                 <label for="inner_order">Номер заказа/сметы</label>
             </div>
         </div>
@@ -107,6 +110,7 @@
                 <button type="submit" class="btn actionbtn indigo darken-1">Обновить информацию</button>
             </div>
         </div>
+
         <div class="row">
             <div class="info col s12">
 
@@ -124,13 +128,17 @@
     </div>
 </form>
 
-
-
+<!-- <div class="box">
+    <div class="cont">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia officia iste repudiandae quibusdam sit, veniam
+        quasi aspernatur culpa id, deleniti, perferendis maxime deserunt quae dolor eaque nobis quis delectus vero.
+    </div>
+</div> -->
 
 
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('select').formSelect();
         $('.collapsible').collapsible();
     });

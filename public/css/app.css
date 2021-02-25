@@ -11,7 +11,7 @@ main {
 
   input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none; // Yeah, yeah everybody write about it
+    -webkit-appearance: none;
 }
 
 input[type='number'],
@@ -191,8 +191,21 @@ h3 {
     color: #bb2124;
 }
 
+.findselect{
+    display: flex;
+    justify-content: space-around;
+}
 
-@media print {
-    #print {
-        -webkit-print-color-adjust: exact; 
-    }
+/* .box{
+    width: 100%;
+    position: relative;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    top: -80vh;
+}
+
+.cont{
+    background-color:rgba(15, 81, 50, 0.6);
+    
+} */
