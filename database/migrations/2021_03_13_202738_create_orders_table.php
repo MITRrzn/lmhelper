@@ -22,9 +22,9 @@ class CreateOrdersTable extends Migration
                 $table->string('customer_phone');
                 $table->integer('article');
                 $table->integer('quantity');
-                $table->bigInteger('order_number')->nullable(); //Возможно сдеть integer и вывод по формату
+                $table->bigInteger('order_number')->nullable();
                 $table->bigInteger('shipment_num')->nullable();
-                $table->string('status')->default("заказать");
+                $table->tinyInteger('status')->default(1);
                 $table->bigInteger('inner_order')->nullable();
                 $table->dateTime('date')->default(DB::raw('CURRENT_TIMESTAMP'));
                 $table->text('note')->nullable();

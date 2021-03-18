@@ -18,6 +18,7 @@
 
 
 <form action="/update/{{ $order->id }}" method="get">
+    @foreach($orderDetail as $det)
     <div class="container order-cont">
         <div class="row">
             <div class="info col s6">
@@ -30,12 +31,12 @@
             <div class="info col s6">
                 <div class="input-field col s12">
                     <select name="status">
-                        <option value="{{ $order->status }}" selected>Статус: {{ $order->status }}
+                        <option value="{{ $order->status }}" selected>Статус: {{ $det->status_value }}
                         </option>
-                        <option value="заказать">Заказать</option>
-                        <option value="заказан">Заказан</option>
-                        <option value="приехал">Приехал</option>
-                        <option value="выдан">Выдан</option>
+                        <option value="1">Заказать</option>
+                        <option value="2">Заказан</option>
+                        <option value="3">Приехал</option>
+                        <option value="4">Выдан</option>
                     </select>
                     <label>Статус заказа</label>
                 </div>
@@ -53,19 +54,21 @@
         </div>
         <div class="row order-info">
             <div class="info col s6">
-                <input type="number" name="article" id="article" value="{{ $order->article }}">
-                <label for="article">ЛМ код</label>
+                <input type="text" name="product" disabled id="product" value="{{ $det->name }}">
+                <label for="product">Наименование</label>
+
+
             </div>
             <div class="info col s6">
                 <input type="number" name="quantity" id="quantity" value="{{ $order->quantity }}">
                 <label for="quantity">Количество</label>
             </div>
         </div>
-        @foreach($orderDetail as $det)
+
         <div class="row">
             <div class="info col s6">
-                <input type="text" name="product" disabled id="product" value="{{ $det->name }}">
-                <label for="product">Наименование</label>
+                <input type="number" name="product" id="product" value="{{ $order->article }}">
+                <label for="product">ЛМ код</label>
             </div>
             <div class="info col s6">
                 <input type="number" disabled name="EAN" id="EAN" value="{{ $det->EAN }}">

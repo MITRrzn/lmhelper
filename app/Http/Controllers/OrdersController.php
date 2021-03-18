@@ -26,8 +26,24 @@ class OrdersController extends Controller
         }
 
 
+        // $all = DB::table('orders')
+        //     ->orderBy('status', 'asc')
+        //     ->orderBy('date', 'desc')
+        //     ->paginate(25);
+
         $all = DB::table('orders')
-            ->orderBy('status', 'desc')
+            ->leftJoin('statuses', 'orders.status', '=', 'statuses.id')
+            ->select(
+                'orders.id',
+                'orders.customer_name',
+                'orders.customer_phone',
+                'orders.order_number',
+                'orders.article',
+                'orders.inner_order',
+                'orders.date',
+                'statuses.status_value',
+            )
+            ->orderBy('status', 'asc')
             ->orderBy('date', 'desc')
             ->paginate(25);
 
@@ -93,6 +109,7 @@ class OrdersController extends Controller
 
         $orderDetail = DB::table('orders')
             ->leftJoin('products', 'orders.article', '=', 'products.article')
+            ->leftJoin('statuses', 'orders.status', '=', 'statuses.id')
             ->select(
                 'orders.article',
                 'orders.inner_order',
@@ -103,6 +120,7 @@ class OrdersController extends Controller
                 'products.EAN',
                 'products.plant_id',
                 'products.plant_name',
+                'statuses.status_value'
             )
             ->where('orders.article', '=', $article)
             ->where('orders.inner_order', '=', $inner_order)
@@ -131,7 +149,7 @@ class OrdersController extends Controller
         $order->status = $request->input('status');
         $order->customer_name = $request->input('name');
         $order->customer_phone = request('phone');
-        $order->article = request('article');
+        $order->article = request('product');
         $order->quantity = request('quantity');
         $order->order_number = request('order_num');
         $order->shipment_num = request('shipment_num');

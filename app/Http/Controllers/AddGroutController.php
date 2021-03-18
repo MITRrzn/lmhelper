@@ -10,6 +10,19 @@ class AddGroutController extends Controller
 {
     public function addGrout(Request $request)
     {
+
+        $this->validate($request, [
+            'article' => 'required|numeric',
+            'name' => 'required',
+            'plant' => 'required',
+            'color' => 'required|alpha'
+        ], [
+            'article.required' => 'Поле Название статьи обязательно для заполнения',
+            'name.required'  => 'Поле Текст статьи обязательно для заполнения',
+            'plant.required' => 'Поле Дата публикации имеет неверный формат',
+            'color.required' => 'Инвалид'
+        ]);
+
         $article = $request->input('article');
         $name = $request->input('name');
         $plant = $request->input('plant');
@@ -25,18 +38,5 @@ class AddGroutController extends Controller
         );
 
         return redirect('/test');
-    }
-
-    public function updateGrout(Request $request)
-    {
-        $id = $request->input('id');
-        $article = $request->input('article');
-        $name = $request->input('name');
-        $plant = $request->input('plant');
-        $color = $request->input('color');
-
-        DB::table('grouts')
-            ->where('id', 1)
-            ->update(['color' => $color]);
     }
 }

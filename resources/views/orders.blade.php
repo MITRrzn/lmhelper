@@ -128,26 +128,23 @@
                 <td>{{ $elem->customer_name }}</td>
                 <td>{{ $elem->customer_phone }}</td>
                 <td>
-                    <a href="innerLink/{{ $elem->inner_order }}">{{ $elem->inner_order }}</a>
+                    <a href="https://customerorders.leroymerlin.ru/orders_v2/{{ $elem->inner_order }}">{{ $elem->inner_order }}</a>
                 </td>
                 <td>{{ $elem->article }}</td>
-                <td>{{ $elem->status }}</td>
+                <td>{{ $elem->status_value }}</td>
                 <td>
-                    @switch($elem->status)
-                    @case("заказать")
+                    @switch($elem->status_value)
+                    @case("Заказать")
                     <a class="btn-small btn-floating pulse red"><i class="tiny material-icons">error</i></a>
                     @break
-                    @case("заказан")
+                    @case("Заказан")
                     <a class="btn-small btn-floating grey darken-1"><i class="tiny material-icons">local_shipping</i></a>
                     @break
-                    @case("выдан")
-                    <a class="btn-small btn-floating  green "><i class="tiny material-icons">attach_money</i></a>
-                    @break
-                    @case("позвонить")
-                    <a class="btn-small btn-floating yellow accent-4 "><i class="tiny material-icons">local_phone</i></a>
-                    @break
-                    @case("приехал")
+                    @case("Приехал")
                     <a class="btn-small btn-floating grey darken-1 "><i class="tiny material-icons">shopping_basket</i></a>
+                    @break
+                    @case("Выдан")
+                    <a class="btn-small btn-floating  green "><i class="tiny material-icons">attach_money</i></a>
                     @break
                     @endswitch
                 </td>

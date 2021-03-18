@@ -50,5 +50,10 @@ class GroutController extends Controller
                 'starlike' => $starlike, 'search' => $search, 'title' => $page_title
             ]
         );
+
+        return response()
+            ->json([
+                'starlike' => 'starlike'
+            ]);
     }
 }
