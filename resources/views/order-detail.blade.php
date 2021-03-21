@@ -16,8 +16,10 @@
 @section('content')
 {{-- content here --}}
 
+<ul>
 
-<form action="/update/{{ $order->id }}" method="get">
+</ul>
+<form action="/update/{{ $order->id }}" method="POST">
     @foreach($orderDetail as $det)
     <div class="container order-cont">
         <div class="row">
@@ -33,10 +35,11 @@
                     <select name="status">
                         <option value="{{ $order->status }}" selected>Статус: {{ $det->status_value }}
                         </option>
-                        <option value="1">Заказать</option>
-                        <option value="2">Заказан</option>
-                        <option value="3">Приехал</option>
-                        <option value="4">Выдан</option>
+
+                        @foreach($status_list as $item)
+                        <option value="{{ $item->id }}">{{ $item->status_value }}</option>
+                        @endforeach
+
                     </select>
                     <label>Статус заказа</label>
                 </div>
@@ -67,8 +70,8 @@
 
         <div class="row">
             <div class="info col s6">
-                <input type="number" name="product" id="product" value="{{ $order->article }}">
-                <label for="product">ЛМ код</label>
+                <input type="number" disabled name="article" id="article" value="{{ $order->article }}">
+                <label for="article">ЛМ код</label>
             </div>
             <div class="info col s6">
                 <input type="number" disabled name="EAN" id="EAN" value="{{ $det->EAN }}">
@@ -131,12 +134,6 @@
     </div>
 </form>
 
-<!-- <div class="box">
-    <div class="cont">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia officia iste repudiandae quibusdam sit, veniam
-        quasi aspernatur culpa id, deleniti, perferendis maxime deserunt quae dolor eaque nobis quis delectus vero.
-    </div>
-</div> -->
 
 
 

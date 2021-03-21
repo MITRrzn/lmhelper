@@ -73,6 +73,38 @@ class OrdersController extends Controller
 
     public function addOrder(Request $request) // phpcs:disable
     { // phpcs:enable
+
+        $this->validate(
+            $request,
+            [
+                'name' => 'required|alpha',
+                'phone' => 'required',
+                // 'phone' => ['required', 'regex:/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$'],
+                'article' => 'required|numeric|digits_between:5,8',
+                'quantity' => 'required|numeric',
+                'inner_order' => 'required|numeric|digits:12',
+            ],
+            [
+                'name.required'  => 'Введите имя клиента',
+                'name.alpha' => 'Имя должно содержать только буквы',
+
+                'phone.required' => 'Введите номер телефона',
+                // 'phone.regex' => 'Введите номер телефона в формате +7 (XXX) XXX-XX-XX',
+
+                'article.required' => 'Введите LM код товара',
+                'article.numeric' => 'LM код должен содержать только цифры',
+                'article.digits_between' => 'LM код должен быть длиной от 5 до 8 цифр',
+
+                'quantity.required' => 'Введите количество',
+                'quantity.numeric' => 'Количество должно состоять из цифр',
+
+                'inner_order.required' => 'Введите № заказа',
+                'inner_order.numeric' => 'Номер должен состоять из цифр',
+                'inner_order.digits' => 'Номер заказа должен состоять из 12 цифр',
+            ]
+        );
+
+
         $name = $request->input('name');
         $phone = $request->input('phone');
         $article = $request->input('article');
@@ -80,22 +112,19 @@ class OrdersController extends Controller
         $inner = $request->input('inner_order');
         $note = $request->input('note');
 
-        if (strlen($name) < 3 || strlen($phone) < 3 || strlen($article) < 3 || strlen($quantity) == 0) {
-            echo "ERROR";
-        } else {
-            DB::table('orders')->insert(
-                [
-                    'customer_name' => $name,
-                    'customer_phone' => $phone,
-                    'article' => $article,
-                    'quantity' => $quantity,
-                    'inner_order' => $inner,
-                    'note' => $note,
-                ]
-            );
 
-            return redirect('/orders');
-        }
+        DB::table('orders')->insert(
+            [
+                'customer_name' => $name,
+                'customer_phone' => $phone,
+                'article' => $article,
+                'quantity' => $quantity,
+                'inner_order' => $inner,
+                'note' => $note,
+            ]
+        );
+
+        return redirect('/orders');
     }
 
     public function detailOrder($id, $article, $inner_order) // phpcs:disable
@@ -106,6 +135,7 @@ class OrdersController extends Controller
         $user = Auth::user();
 
         $order = Orders::find($id);
+
 
         $orderDetail = DB::table('orders')
             ->leftJoin('products', 'orders.article', '=', 'products.article')
@@ -126,12 +156,22 @@ class OrdersController extends Controller
             ->where('orders.inner_order', '=', $inner_order)
             ->get();
 
+        $status = get_object_vars($orderDetail[0])["status_value"];
+        $status_list = DB::table('statuses')
+            ->select('id', 'status_value')
+            ->where('status_value', '!=', $status)
+            ->get();
+
+
+
+
+
         return view(
             'order-detail',
             [
                 'order' => $order, 'title' => $page_title,
                 'search' => $search, 'orderDetail' => $orderDetail,
-                'user' => $user,
+                'user' => $user, 'status_list' => $status_list,
             ]
         );
     }
@@ -149,7 +189,6 @@ class OrdersController extends Controller
         $order->status = $request->input('status');
         $order->customer_name = $request->input('name');
         $order->customer_phone = request('phone');
-        $order->article = request('product');
         $order->quantity = request('quantity');
         $order->order_number = request('order_num');
         $order->shipment_num = request('shipment_num');
