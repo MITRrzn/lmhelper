@@ -77,19 +77,18 @@ class OrdersController extends Controller
         $this->validate(
             $request,
             [
-                'name' => 'required|alpha',
-                'phone' => 'required',
-                // 'phone' => ['required', 'regex:/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$'],
+                'name' => 'required|alpha_spaces',
+                'phone' => 'required|phone_num',
                 'article' => 'required|numeric|digits_between:5,8',
                 'quantity' => 'required|numeric',
                 'inner_order' => 'required|numeric|digits:12',
             ],
             [
                 'name.required'  => 'Введите имя клиента',
-                'name.alpha' => 'Имя должно содержать только буквы',
+                'name.alpha_spaces' => 'Имя должно содержать только буквы',
 
                 'phone.required' => 'Введите номер телефона',
-                // 'phone.regex' => 'Введите номер телефона в формате +7 (XXX) XXX-XX-XX',
+                'phone.num' => 'Введите номер телефона в формате +7 (XXX) XXX-XX-XX',
 
                 'article.required' => 'Введите LM код товара',
                 'article.numeric' => 'LM код должен содержать только цифры',
