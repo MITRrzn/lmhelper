@@ -16,9 +16,6 @@
 @section('content')
 {{-- content here --}}
 
-<ul>
-
-</ul>
 <form action="/update/{{ $order->id }}" method="POST">
     @foreach($orderDetail as $det)
     <div class="container order-cont">

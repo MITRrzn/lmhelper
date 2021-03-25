@@ -6,6 +6,9 @@ use App\Models\Orders;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Validator;
+
+
 
 
 
@@ -48,13 +51,25 @@ class OrdersController extends Controller
             ->paginate(25);
 
         if ($find) {
-            $all = DB::table('orders')->where(
-                'customer_name',
-                'like',
-                '%' . $find . '%'
-            )
+            $all = DB::table('orders')
+                ->leftJoin('statuses', 'orders.status', '=', 'statuses.id')
+                ->select(
+                    'orders.id',
+                    'orders.customer_name',
+                    'orders.customer_phone',
+                    'orders.order_number',
+                    'orders.article',
+                    'orders.inner_order',
+                    'orders.date',
+                    'statuses.status_value',
+                )
+                ->where(
+                    'orders.customer_name',
+                    'like',
+                    '%' . $find . '%'
+                )
                 ->orWhere(
-                    'customer_phone',
+                    'orders.customer_phone',
                     'like',
                     '%' . $find . '%'
                 )
@@ -74,54 +89,74 @@ class OrdersController extends Controller
     public function addOrder(Request $request) // phpcs:disable
     { // phpcs:enable
 
-        $this->validate(
-            $request,
-            [
-                'name' => 'required|alpha_spaces',
-                'phone' => 'required|phone_num',
-                'article' => 'required|numeric|digits_between:5,8',
-                'quantity' => 'required|numeric',
-                'inner_order' => 'required|numeric|digits:12',
-            ],
-            [
-                'name.required'  => 'Введите имя клиента',
-                'name.alpha_spaces' => 'Имя должно содержать только буквы',
+        $validator = Validator::make($request->all(), [
 
-                'phone.required' => 'Введите номер телефона',
-                'phone.num' => 'Введите номер телефона в формате +7 (XXX) XXX-XX-XX',
+            'name' => 'required|alpha_spaces',
+            'phone' => 'required|phone_num',
+            'article' => 'required|numeric|digits_between:5,8',
+            'quantity' => 'required|numeric',
+            'inner_order' => 'required|numeric|digits:12',
 
-                'article.required' => 'Введите LM код товара',
-                'article.numeric' => 'LM код должен содержать только цифры',
-                'article.digits_between' => 'LM код должен быть длиной от 5 до 8 цифр',
+        ]);
 
-                'quantity.required' => 'Введите количество',
-                'quantity.numeric' => 'Количество должно состоять из цифр',
-
-                'inner_order.required' => 'Введите № заказа',
-                'inner_order.numeric' => 'Номер должен состоять из цифр',
-                'inner_order.digits' => 'Номер заказа должен состоять из 12 цифр',
-            ]
-        );
+        if ($validator->passes()) {
 
 
-        $name = $request->input('name');
-        $phone = $request->input('phone');
-        $article = $request->input('article');
-        $quantity = $request->input('quantity');
-        $inner = $request->input('inner_order');
-        $note = $request->input('note');
+            $name = $request->input('name');
+            $phone = $request->input('phone');
+            $article = $request->input('article');
+            $quantity = $request->input('quantity');
+            $inner = $request->input('inner_order');
+            $note = $request->input('note');
 
 
-        DB::table('orders')->insert(
-            [
-                'customer_name' => $name,
-                'customer_phone' => $phone,
-                'article' => $article,
-                'quantity' => $quantity,
-                'inner_order' => $inner,
-                'note' => $note,
-            ]
-        );
+            DB::table('orders')->insert(
+                [
+                    'customer_name' => $name,
+                    'customer_phone' => $phone,
+                    'article' => $article,
+                    'quantity' => $quantity,
+                    'inner_order' => $inner,
+                    'note' => $note,
+                ]
+            );
+
+            return response()->json(['success' => 'Added new records.']);
+        }
+
+        return response()->json(['error' => $validator->errors()]);
+
+
+        // $this->validate(
+        //     $request,
+        //     [
+        //         'name' => 'required|alpha_spaces',
+        //         'phone' => 'required|phone_num',
+        //         'article' => 'required|numeric|digits_between:5,8',
+        //         'quantity' => 'required|numeric',
+        //         'inner_order' => 'required|numeric|digits:12',
+        //     ],
+        //     [
+        //         'name.required'  => 'Введите имя клиента',
+        //         'name.alpha_spaces' => 'Имя должно содержать только буквы',
+
+        //         'phone.required' => 'Введите номер телефона',
+        //         'phone.num' => 'Введите номер телефона в формате +7 (XXX) XXX-XX-XX',
+
+        //         'article.required' => 'Введите LM код товара',
+        //         'article.numeric' => 'LM код должен содержать только цифры',
+        //         'article.digits_between' => 'LM код должен быть длиной от 5 до 8 цифр',
+
+        //         'quantity.required' => 'Введите количество',
+        //         'quantity.numeric' => 'Количество должно состоять из цифр',
+
+        //         'inner_order.required' => 'Введите № заказа',
+        //         'inner_order.numeric' => 'Номер должен состоять из цифр',
+        //         'inner_order.digits' => 'Номер заказа должен состоять из 12 цифр',
+        //     ]
+        // );
+
+
 
         return redirect('/orders');
     }
