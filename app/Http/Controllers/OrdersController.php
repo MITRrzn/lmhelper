@@ -158,7 +158,7 @@ class OrdersController extends Controller
 
 
 
-        return redirect('/orders');
+        // return redirect('/orders');
     }
 
     public function detailOrder($id, $article, $inner_order) // phpcs:disable
@@ -169,7 +169,6 @@ class OrdersController extends Controller
         $user = Auth::user();
 
         $order = Orders::find($id);
-
 
         $orderDetail = DB::table('orders')
             ->leftJoin('products', 'orders.article', '=', 'products.article')
@@ -196,10 +195,6 @@ class OrdersController extends Controller
             ->where('status_value', '!=', $status)
             ->get();
 
-
-
-
-
         return view(
             'order-detail',
             [
@@ -219,6 +214,7 @@ class OrdersController extends Controller
 
     public function updateOrder(Request $request, $id) // phpcs:disable
     { // phpcs:enable
+
         $order = Orders::find($id);
         $order->status = $request->input('status');
         $order->customer_name = $request->input('name');

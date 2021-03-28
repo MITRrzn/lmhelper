@@ -59,7 +59,7 @@ Route::get(
 )
     ->name('deleteOrder');
 
-Route::get(
+Route::post(
     '/update/{id}',
     'App\Http\Controllers\OrdersController@updateOrder'
 )

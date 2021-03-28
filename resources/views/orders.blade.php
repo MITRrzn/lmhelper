@@ -44,18 +44,14 @@
 
 <div id="modal1" class="modal">
     <div class="modal-content">
-        @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-        @endif
+        <ul>
+            <li><span class="text-danger error-text name_err"></span></li>
+            <li><span class="text-danger error-text phone_err"></span></li>
+            <li><span class="text-danger error-text article_err"></span></li>
+            <li><span class="text-danger error-text quantity_err"></span></li>
+            <li><span class="text-danger error-text inner_order_err"></span></li>
+        </ul>
 
-        <span class="text-danger error-text article_err"></span>
-        <span class="text-danger error-text address_err"></span>
         <form id="addOrder">
             @csrf
             <div class="row">
@@ -171,6 +167,7 @@
         $('.count').characterCounter();
 
     });
+
     $(function () {
         $("#phone").mask("+7 (999) 999-99-99");
     });

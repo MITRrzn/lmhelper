@@ -16,7 +16,8 @@
 @section('content')
 {{-- content here --}}
 
-<form action="/update/{{ $order->id }}" method="POST">
+<form action="/update/{{ $order->id }}" method="post">
+    @csrf
     @foreach($orderDetail as $det)
     <div class="container order-cont">
         <div class="row">

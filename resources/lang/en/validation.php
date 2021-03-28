@@ -13,7 +13,7 @@ return [
     |
     */
     'alpha_spaces'         => 'The :attribute may only contain letters and spaces.',
-    'phone_num'            => 'Input correct phone number',
+    'phone_num'            => 'The :attribute must be phone number',
 
     'accepted' => 'The :attribute must be accepted.',
     'active_url' => 'The :attribute is not a valid URL.',
