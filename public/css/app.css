@@ -196,16 +196,14 @@ h3 {
     justify-content: space-around;
 }
 
-/* .box{
-    width: 100%;
-    position: relative;
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    top: -80vh;
+.error-info{
+    width: 50%;
+    position:absolute;
+    top: 30%;
+    left: 20%;
+    background-color: #95070c;
+    color: #fff;
+    z-index: 2000;
+    display: none;
+    cursor: pointer;
 }
-
-.cont{
-    background-color:rgba(15, 81, 50, 0.6);
-    
-} */

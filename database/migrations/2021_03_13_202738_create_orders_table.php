@@ -26,6 +26,7 @@ class CreateOrdersTable extends Migration
                 $table->bigInteger('shipment_num')->nullable();
                 $table->tinyInteger('status')->default(1);
                 $table->bigInteger('inner_order')->nullable();
+                $table->boolean('is_show')->default(1);
                 $table->dateTime('date')->default(DB::raw('CURRENT_TIMESTAMP'));
                 $table->text('note')->nullable();
                 $table->timestamps();

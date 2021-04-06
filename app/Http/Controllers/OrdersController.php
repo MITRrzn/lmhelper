@@ -22,17 +22,10 @@ class OrdersController extends Controller
         $search = null;
 
         $find = $request->input('search');
-        // $findBy = $request->input('findBy');
 
         if (isset($_GET["search"])) {
             $search = $_GET["search"];
         }
-
-
-        // $all = DB::table('orders')
-        //     ->orderBy('status', 'asc')
-        //     ->orderBy('date', 'desc')
-        //     ->paginate(25);
 
         $all = DB::table('orders')
             ->leftJoin('statuses', 'orders.status', '=', 'statuses.id')
@@ -44,8 +37,10 @@ class OrdersController extends Controller
                 'orders.article',
                 'orders.inner_order',
                 'orders.date',
+                'orders.is_show',
                 'statuses.status_value',
             )
+            ->where('orders.is_show', '=', 1)
             ->orderBy('status', 'asc')
             ->orderBy('date', 'desc')
             ->paginate(25);
@@ -58,6 +53,7 @@ class OrdersController extends Controller
                     'orders.customer_name',
                     'orders.customer_phone',
                     'orders.order_number',
+                    'orders.inner_order',
                     'orders.article',
                     'orders.inner_order',
                     'orders.date',
@@ -73,8 +69,14 @@ class OrdersController extends Controller
                     'like',
                     '%' . $find . '%'
                 )
+                ->orWhere(
+                    'orders.inner_order',
+                    'like',
+                    '%' . $find . '%'
+                )
                 ->orderBy('date', 'asc')->get();
         }
+
 
 
         return view(
@@ -90,18 +92,14 @@ class OrdersController extends Controller
     { // phpcs:enable
 
         $validator = Validator::make($request->all(), [
-
             'name' => 'required|alpha_spaces',
             'phone' => 'required|phone_num',
             'article' => 'required|numeric|digits_between:5,8',
             'quantity' => 'required|numeric',
             'inner_order' => 'required|numeric|digits:12',
-
         ]);
 
         if ($validator->passes()) {
-
-
             $name = $request->input('name');
             $phone = $request->input('phone');
             $article = $request->input('article');
@@ -125,40 +123,6 @@ class OrdersController extends Controller
         }
 
         return response()->json(['error' => $validator->errors()]);
-
-
-        // $this->validate(
-        //     $request,
-        //     [
-        //         'name' => 'required|alpha_spaces',
-        //         'phone' => 'required|phone_num',
-        //         'article' => 'required|numeric|digits_between:5,8',
-        //         'quantity' => 'required|numeric',
-        //         'inner_order' => 'required|numeric|digits:12',
-        //     ],
-        //     [
-        //         'name.required'  => 'Введите имя клиента',
-        //         'name.alpha_spaces' => 'Имя должно содержать только буквы',
-
-        //         'phone.required' => 'Введите номер телефона',
-        //         'phone.num' => 'Введите номер телефона в формате +7 (XXX) XXX-XX-XX',
-
-        //         'article.required' => 'Введите LM код товара',
-        //         'article.numeric' => 'LM код должен содержать только цифры',
-        //         'article.digits_between' => 'LM код должен быть длиной от 5 до 8 цифр',
-
-        //         'quantity.required' => 'Введите количество',
-        //         'quantity.numeric' => 'Количество должно состоять из цифр',
-
-        //         'inner_order.required' => 'Введите № заказа',
-        //         'inner_order.numeric' => 'Номер должен состоять из цифр',
-        //         'inner_order.digits' => 'Номер заказа должен состоять из 12 цифр',
-        //     ]
-        // );
-
-
-
-        // return redirect('/orders');
     }
 
     public function detailOrder($id, $article, $inner_order) // phpcs:disable
@@ -227,6 +191,6 @@ class OrdersController extends Controller
 
         $order->save();
 
-        return redirect('/orders');
+        return back();
     }
 }

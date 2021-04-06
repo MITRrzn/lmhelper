@@ -33,6 +33,7 @@ class OrdersController extends AdminController
         $grid->column('status', __('Status'));
         $grid->column('inner_order', __('Inner order'));
         $grid->column('note', __('Note'));
+        $grid->column('is_show')->switch();
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 
@@ -56,6 +57,7 @@ class OrdersController extends AdminController
         $show->field('status', __('Status'));
         $show->field('inner_order', __('Inner order'));
         $show->field('note', __('Note'));
+        $show->field('is_show', __('Show'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
 
@@ -77,6 +79,7 @@ class OrdersController extends AdminController
         $form->text('status', __('Status'));
         $form->number('inner_order', __('Inner order'));
         $form->textarea('note', __('Note'));
+        $form->switch('is_show', __('Show'))->default(1);
 
         return $form;
     }

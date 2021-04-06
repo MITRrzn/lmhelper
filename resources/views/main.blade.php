@@ -275,40 +275,41 @@
         </div>
     </footer>
     @show
+    @section('script')
+    <script>
+        @if(!isset($grout_all))
+        var el = document.querySelector('.tabs');
+        var instance = M.Tabs.init(el, {});
+        @endif
+
+
+
+        function copyToClipboard(str) {
+            var area = document.createElement("textarea");
+            document.body.appendChild(area);
+            area.value = str;
+            area.select();
+            document.execCommand("copy");
+            document.body.removeChild(area);
+        }
+
+
+        $(document).ready(function() {
+            $('.materialboxed').materialbox();
+
+            $(".article").on("click", function() {
+                copyToClipboard($(this).text());
+            });
+
+            $('.dropdown-trigger').dropdown();
+
+        });
+
+    </script>
+    @show
 
 </body>
 @show
-@section('script')
-<script>
-    @if(!isset($grout_all))
-    var el = document.querySelector('.tabs');
-    var instance = M.Tabs.init(el, {});
-    @endif
 
-
-
-    function copyToClipboard(str) {
-        var area = document.createElement("textarea");
-        document.body.appendChild(area);
-        area.value = str;
-        area.select();
-        document.execCommand("copy");
-        document.body.removeChild(area);
-    }
-
-
-    $(document).ready(function() {
-        $('.materialboxed').materialbox();
-
-        $(".article").on("click", function() {
-            copyToClipboard($(this).text());
-        });
-
-        $('.dropdown-trigger').dropdown();
-
-    });
-
-</script>
-@show
 
 </html>

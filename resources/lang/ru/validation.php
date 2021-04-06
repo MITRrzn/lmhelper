@@ -149,9 +149,9 @@ return [
         'title'                 => 'Наименование',
         'username'              => 'Никнейм',
         'year'                  => 'Год',
-        'article'                => 'LM код',
-        'quantity'                => 'Количество',
-        'inner_order'                => 'Номер заказа',
+        'article'               => 'LM код',
+        'quantity'              => 'Количество',
+        'inner_order'           => 'Номер заказа',
 
     ],
 ];

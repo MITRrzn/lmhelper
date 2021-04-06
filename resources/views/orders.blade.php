@@ -44,13 +44,20 @@
 
 <div id="modal1" class="modal">
     <div class="modal-content">
-        <ul>
-            <li><span class="text-danger error-text name_err"></span></li>
-            <li><span class="text-danger error-text phone_err"></span></li>
-            <li><span class="text-danger error-text article_err"></span></li>
-            <li><span class="text-danger error-text quantity_err"></span></li>
-            <li><span class="text-danger error-text inner_order_err"></span></li>
-        </ul>
+        <div class="error-info" id="error-info">
+            Для корректного создания заказа, нужно исправить следующее:
+            <ul>
+                <li><span class="text-danger error-text name_err"></span></li>
+                <li><span class="text-danger error-text phone_err"></span></li>
+                <li><span class="text-danger error-text article_err"></span></li>
+                <li><span class="text-danger error-text quantity_err"></span></li>
+                <li><span class="text-danger error-text inner_order_err"></span></li>
+            </ul>
+            <p>
+                <i>Кликните здесь чтобы закрыть окно с ошибками</i>
+            </p>
+
+        </div>
 
         <form id="addOrder">
             @csrf
@@ -98,58 +105,64 @@
 
 
 <div class="container orders">
-    <table>
-        <thead>
-            <tr>
-                <th>№</th>
-                <th>Имя</th>
-                <th>Телефон</th>
-                <th>№ заказа</th>
-                <th>Артикул</th>
-                <th>Статус</th>
-                <th></th>
-                <th>Дата создания</th>
-            </tr>
-        </thead>
+    <div class="row">
+        <div class="col s12">
+            <table>
+                <thead>
+                    <tr>
+                        <th>№</th>
+                        <th>Имя</th>
+                        <th>Телефон</th>
+                        <th>№ заказа</th>
+                        <th>Артикул</th>
+                        <th>Статус</th>
+                        <th></th>
+                        <th>Дата создания</th>
+                    </tr>
+                </thead>
 
-        <tbody>
-            @foreach($all as $elem)
-            <tr>
-                <td>{{ $elem->id }}</td>
-                <td>{{ $elem->customer_name }}</td>
-                <td>{{ $elem->customer_phone }}</td>
-                <td>
-                    <a href="https://customerorders.leroymerlin.ru/orders_v2/{{ $elem->inner_order }}">{{
-                        $elem->inner_order }}</a>
-                </td>
-                <td>{{ $elem->article }}</td>
-                <td>{{ $elem->status_value }}</td>
-                <td>
-                    @switch($elem->status_value)
-                    @case("Заказать")
-                    <a class="btn-small btn-floating pulse red"><i class="tiny material-icons">error</i></a>
-                    @break
-                    @case("Заказан")
-                    <a class="btn-small btn-floating orange lighten-1"><i
-                            class="tiny material-icons">local_shipping</i></a>
-                    @break
-                    @case("Приехал")
-                    <a class="btn-small btn-floating grey darken-1 "><i
-                            class="tiny material-icons">shopping_basket</i></a>
-                    @break
-                    @case("Выдан")
-                    <a class="btn-small btn-floating  green "><i class="tiny material-icons">attach_money</i></a>
-                    @break
-                    @endswitch
-                </td>
+                <tbody>
+                    @foreach($all as $elem)
+                    <tr>
+                        <td>{{ $elem->id }}</td>
+                        <td>{{ $elem->customer_name }}</td>
+                        <td>{{ $elem->customer_phone }}</td>
+                        <td>
+                            <a href="https://customerorders.leroymerlin.ru/orders_v2/{{ $elem->inner_order }}">{{
+                                $elem->inner_order }}</a>
+                        </td>
+                        <td>{{ $elem->article }}</td>
+                        <td>{{ $elem->status_value }}</td>
+                        <td>
+                            @switch($elem->status_value)
+                            @case("Заказать")
+                            <a class="btn-small btn-floating pulse red"><i class="tiny material-icons">error</i></a>
+                            @break
+                            @case("Заказан")
+                            <a class="btn-small btn-floating orange lighten-1"><i
+                                    class="tiny material-icons">local_shipping</i></a>
+                            @break
+                            @case("Приехал")
+                            <a class="btn-small btn-floating grey darken-1 "><i
+                                    class="tiny material-icons">shopping_basket</i></a>
+                            @break
+                            @case("Выдан")
+                            <a class="btn-small btn-floating  green "><i
+                                    class="tiny material-icons">attach_money</i></a>
+                            @break
+                            @endswitch
+                        </td>
 
-                <td>{{ Carbon\Carbon::parse($elem->date)->format('d.m.Y') }}</td>
-                <td> <a href="/orders/{{ $elem->id }}_{{ $elem->article }}_{{ $elem->inner_order }}"> <i
-                            class="material-icons">info_outline</i></a></td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+                        <td>{{ Carbon\Carbon::parse($elem->date)->format('d.m.Y') }}</td>
+                        <td> <a href="/orders/{{ $elem->id }}_{{ $elem->article }}_{{ $elem->inner_order }}"> <i
+                                    class="material-icons">info_outline</i></a></td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </div>
 
 
@@ -163,9 +176,11 @@
         $('select').formSelect();
         $('#note').val('');
         M.textareaAutoResize($('#note'));
-
         $('.count').characterCounter();
-
+        //hide alert window with errors on click
+        $('#error-info').click(function () {
+            $("#error-info").fadeOut("slow");
+        });
     });
 
     $(function () {
@@ -175,7 +190,8 @@
 
     $(document).ready(function () {
 
-        $(".btn-submit").click(function (e) {
+        $(".row").on("click", ".btn-submit", function (e) {
+            // $(".btn-submit").click(function (e) {
 
             e.preventDefault();
 
@@ -210,6 +226,7 @@
                             location.reload();
                         });
                     } else {
+                        $("#error-info").fadeIn("slow");
                         printErrorMsg(data.error);
                     }
                 }
