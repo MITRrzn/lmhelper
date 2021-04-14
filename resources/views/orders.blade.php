@@ -226,7 +226,12 @@
                             location.reload();
                         });
                     } else {
-                        $("#error-info").fadeIn("slow");
+                        M.toast({
+                            html: '<ul><li><span class="text-danger error-text name_err"></span></li><li><span class="text-danger error-text phone_err"></span></li><li><span class="text-danger error-text article_err"></span></li><li><span class="text-danger error-text quantity_err"></span></li><li><span class="text-danger error-text inner_order_err"></span></li></ul>',
+                            classes: 'rounded red darken-4',
+                            displayLength: 10000
+                        });
+                        // $("#error-info").fadeIn("slow");
                         printErrorMsg(data.error);
                     }
                 }

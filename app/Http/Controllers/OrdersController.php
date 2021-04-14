@@ -179,18 +179,36 @@ class OrdersController extends Controller
     public function updateOrder(Request $request, $id) // phpcs:disable
     { // phpcs:enable
 
-        $order = Orders::find($id);
-        $order->status = $request->input('status');
-        $order->customer_name = $request->input('name');
-        $order->customer_phone = request('phone');
-        $order->quantity = request('quantity');
-        $order->order_number = request('order_num');
-        $order->shipment_num = request('shipment_num');
-        $order->inner_order = request('inner_order');
-        $order->note = request('note');
 
-        $order->save();
+        $validator = Validator::make($request->all(), [
+            'status' => 'required',
+            'name' => 'required|alpha_spaces',
+            'phone' => 'required|phone_num',
+            'quantity' => 'required|numeric',
+            'order_number' => 'nullable',
+            'shipment_num' => 'nullable|numeric',
+            'inner_order' => 'required|numeric|digits:12',
+        ]);
 
-        return back();
+        if ($validator->passes()) {
+
+            $order = Orders::find($id);
+            $order->status = $request->input('status');
+            $order->customer_name = $request->input('name');
+            $order->customer_phone = request('phone');
+            $order->quantity = request('quantity');
+            $order->order_number = request('order_number');
+            $order->shipment_num = request('shipment_num');
+            $order->inner_order = request('inner_order');
+            $order->note = request('note');
+
+            $order->save();
+
+            return response()->json(['success' => 'SUCCESS!!']);
+        }
+
+        return response()->json(['error' => $validator->errors()]);
+
+        // return back();
     }
 }
