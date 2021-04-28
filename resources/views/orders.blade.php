@@ -15,7 +15,6 @@
 @endsection
 @section('content')
 {{-- content here --}}
-
 <div class="container">
     <div class="row cont">
         <div class="srch-form col s12">
@@ -63,30 +62,27 @@
             @csrf
             <div class="row">
                 <div class="input-field col s6">
-                    <input placeholder="Клиент" id="name" type="text" class="validate" name="name">
+                    <input placeholder="Клиент" id="name" type="text" class="validate" name="name" autocomplete="off">
                     <label for="name">Клиент</label>
                 </div>
                 <div class="input-field col s6">
-                    <input placeholder="Номер телефона" id="phone" type="text" class="validate" name="phone">
+                    <input placeholder="Номер телефона" id="phone" type="text" class="validate" name="phone" autocomplete="off">
                     <label for="phone">Номер телефона</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s6">
-                    <input placeholder="Артикул" data-length="8" id="article" type="number" class="validate count"
-                        name="article" id="article" onkeyup="this.value = this.value.replace(/[^\d]/g,'');">
+                    <input placeholder="Артикул" data-length="8" id="article" type="number" class="validate count" name="article" id="article" onkeyup="this.value = this.value.replace(/[^\d]/g,'');">
                     <label for="article">ЛМ код</label>
                 </div>
                 <div class="input-field col s6">
-                    <input placeholder="Количество" id="quantity" type="number" class="validate" name="quantity"
-                        onkeyup="this.value = this.value.replace(/[^\d]/g,'');">
+                    <input placeholder="Количество" id="quantity" type="number" class="validate" name="quantity" autocomplete="off" onkeyup="this.value = this.value.replace(/[^\d]/g,'');">
                     <label for="quantity">Количество</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <input placeholder="Номер заказа/сметы" data-length="12" id="inner_order" type="number"
-                        class="validate count" name="inner_order">
+                    <input placeholder="Номер заказа/сметы" data-length="12" id="inner_order" type="number" class="validate count" name="inner_order">
                     <label for="inner_order">Номер заказа/сметы</label>
                 </div>
             </div>
@@ -139,23 +135,19 @@
                             <a class="btn-small btn-floating pulse red"><i class="tiny material-icons">error</i></a>
                             @break
                             @case("Заказан")
-                            <a class="btn-small btn-floating orange lighten-1"><i
-                                    class="tiny material-icons">local_shipping</i></a>
+                            <a class="btn-small btn-floating orange lighten-1"><i class="tiny material-icons">local_shipping</i></a>
                             @break
                             @case("Приехал")
-                            <a class="btn-small btn-floating grey darken-1 "><i
-                                    class="tiny material-icons">shopping_basket</i></a>
+                            <a class="btn-small btn-floating grey darken-1 "><i class="tiny material-icons">shopping_basket</i></a>
                             @break
                             @case("Выдан")
-                            <a class="btn-small btn-floating  green "><i
-                                    class="tiny material-icons">attach_money</i></a>
+                            <a class="btn-small btn-floating  green "><i class="tiny material-icons">attach_money</i></a>
                             @break
                             @endswitch
                         </td>
 
                         <td>{{ Carbon\Carbon::parse($elem->date)->format('d.m.Y') }}</td>
-                        <td> <a href="/orders/{{ $elem->id }}_{{ $elem->article }}_{{ $elem->inner_order }}"> <i
-                                    class="material-icons">info_outline</i></a></td>
+                        <td> <a href="/orders/{{ $elem->id }}_{{ $elem->article }}_{{ $elem->inner_order }}"> <i class="material-icons">info_outline</i></a></td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -171,26 +163,26 @@
 
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('.modal').modal();
         $('select').formSelect();
         $('#note').val('');
         M.textareaAutoResize($('#note'));
         $('.count').characterCounter();
         //hide alert window with errors on click
-        $('#error-info').click(function () {
+        $('#error-info').click(function() {
             $("#error-info").fadeOut("slow");
         });
     });
 
-    $(function () {
+    $(function() {
         $("#phone").mask("+7 (999) 999-99-99");
     });
 
 
-    $(document).ready(function () {
+    $(document).ready(function() {
 
-        $(".row").on("click", ".btn-submit", function (e) {
+        $(".row").on("click", ".btn-submit", function(e) {
             // $(".btn-submit").click(function (e) {
 
             e.preventDefault();
@@ -202,34 +194,36 @@
             var article = $("#article").val();
             var quantity = $("#quantity").val();
             var inner_order = $("#inner_order").val();
+            var note = $("#note").val();
 
 
             $.ajax({
 
-                url: "{{ route('addorder') }}",
-                type: 'POST',
-                data: {
+                url: "{{ route('addorder') }}"
+                , type: 'POST'
+                , data: {
                     _token: _token
                     , name: name
                     , phone: phone
                     , article: article
                     , quantity: quantity
                     , inner_order: inner_order
+                    , note: note
                 },
 
-                success: function (data) {
+                success: function(data) {
                     console.log(data.error)
                     if ($.isEmptyObject(data.error)) {
                         console.log("Order added");
                         $("#addOrder")[0].reset();
-                        $("#modal1").fadeOut(800, function () {
+                        $("#modal1").fadeOut(800, function() {
                             location.reload();
                         });
                     } else {
                         M.toast({
-                            html: '<ul><li><span class="text-danger error-text name_err"></span></li><li><span class="text-danger error-text phone_err"></span></li><li><span class="text-danger error-text article_err"></span></li><li><span class="text-danger error-text quantity_err"></span></li><li><span class="text-danger error-text inner_order_err"></span></li></ul>',
-                            classes: 'rounded red darken-4',
-                            displayLength: 10000
+                            html: '<ul><li><span class="text-danger error-text name_err"></span></li><li><span class="text-danger error-text phone_err"></span></li><li><span class="text-danger error-text article_err"></span></li><li><span class="text-danger error-text quantity_err"></span></li><li><span class="text-danger error-text inner_order_err"></span></li></ul>'
+                            , classes: 'rounded red darken-4'
+                            , displayLength: 10000
                         });
                         // $("#error-info").fadeIn("slow");
                         printErrorMsg(data.error);
@@ -239,7 +233,7 @@
         });
 
         function printErrorMsg(msg) {
-            $.each(msg, function (key, value) {
+            $.each(msg, function(key, value) {
                 console.log(key);
                 $('.' + key + '_err').text(value);
             });

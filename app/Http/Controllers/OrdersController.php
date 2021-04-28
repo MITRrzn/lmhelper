@@ -18,8 +18,10 @@ class OrdersController extends Controller
     public function show(Request $request)
     {
         // phpcs:enable
+        $user = Auth::user();
         $page_title = "Заказы";
         $search = null;
+
 
         $find = $request->input('search');
 
@@ -57,23 +59,27 @@ class OrdersController extends Controller
                     'orders.article',
                     'orders.inner_order',
                     'orders.date',
+                    'orders.is_show',
                     'statuses.status_value',
                 )
-                ->where(
-                    'orders.customer_name',
-                    'like',
-                    '%' . $find . '%'
-                )
-                ->orWhere(
-                    'orders.customer_phone',
-                    'like',
-                    '%' . $find . '%'
-                )
-                ->orWhere(
-                    'orders.inner_order',
-                    'like',
-                    '%' . $find . '%'
-                )
+                ->where('orders.is_show', '=', 1)
+                ->where(function ($query) use ($find) {
+                    $query->where(
+                        'orders.customer_name',
+                        'like',
+                        '%' . $find . '%'
+                    )
+                        ->orWhere(
+                            'orders.customer_phone',
+                            'like',
+                            '%' . $find . '%'
+                        )
+                        ->orWhere(
+                            'orders.inner_order',
+                            'like',
+                            '%' . $find . '%'
+                        );
+                })
                 ->orderBy('date', 'asc')->get();
         }
 
@@ -84,6 +90,7 @@ class OrdersController extends Controller
             [
                 'search' => $search,
                 'title' => $page_title, 'all' => $all,
+                'user' => $user,
             ]
         );
     }
@@ -91,12 +98,15 @@ class OrdersController extends Controller
     public function addOrder(Request $request) // phpcs:disable
     { // phpcs:enable
 
+        $user = Auth::user();
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|alpha_spaces',
             'phone' => 'required|phone_num',
             'article' => 'required|numeric|digits_between:5,8',
             'quantity' => 'required|numeric',
             'inner_order' => 'required|numeric|digits:12',
+            'note' => 'nullable',
         ]);
 
         if ($validator->passes()) {
@@ -106,6 +116,8 @@ class OrdersController extends Controller
             $quantity = $request->input('quantity');
             $inner = $request->input('inner_order');
             $note = $request->input('note');
+            $departmentID = Auth::user()->departmentID;
+            $created_by = Auth::user()->name;
 
 
             DB::table('orders')->insert(
@@ -116,6 +128,8 @@ class OrdersController extends Controller
                     'quantity' => $quantity,
                     'inner_order' => $inner,
                     'note' => $note,
+                    'departmentID' => $departmentID,
+                    'created_by' => $created_by,
                 ]
             );
 
@@ -171,7 +185,9 @@ class OrdersController extends Controller
 
     public function deleteOrder($id) // phpcs:disable
     { // phpcs:enable
-        DB::table('orders')->where('id', '=', $id)->delete();
+        DB::table('orders')
+            ->where('id', '=', $id)
+            ->update(["is_show" => 0]);
 
         return redirect('/orders');
     }
@@ -185,7 +201,7 @@ class OrdersController extends Controller
             'name' => 'required|alpha_spaces',
             'phone' => 'required|phone_num',
             'quantity' => 'required|numeric',
-            'order_number' => 'nullable',
+            'order_number' => 'nullable|numeric',
             'shipment_num' => 'nullable|numeric',
             'inner_order' => 'required|numeric|digits:12',
         ]);

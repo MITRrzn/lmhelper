@@ -42,15 +42,33 @@
     <main>
 
         @section('dropdown')
-        <a class='dropdown-trigger btn indigo darken-1 menu-ico' href='#' data-target='dropdown1'>
-            Menu
-        </a>
+        <div class="container">
+            <div class="row">
+                <div class="col s12">
+                    <nav>
+                        <div class="nav-wrapper indigo darken-1">
+                            <a href="{{ route('logout') }}" class="right">
+                                <span class="material-icons user-icon">
+                                    logout
+                                </span>
+                            </a>
 
-        <!-- Dropdown Structure -->
-        <ul id='dropdown1' class='dropdown-content'>
-            <li><a href="{{ route('grout_page') }}"><i class="material-icons">home</i>Затирки</a></li>
-            <li><a href="{{ route('orders') }}"><i class="material-icons">star_half</i>Заказы</a></li>
-        </ul>
+                            <a href="{{ route('account') }}" class="right">
+                                <span class="material-icons user-icon">
+                                    account_circle
+                                </span>
+                            </a>
+                            <ul id="nav-mobile" class="left hide-on-med-and-down">
+                                <li><a href="{{ route('orders') }}" class="nav-item">Заказы</a></li>
+                                <li><a href="{{ route('grout_page') }}" class="nav-item">Затирки</a></li>
+                                <li><a href="#" class="nav-item">Сатистика</a></li>
+
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
         @show
         <div class="header">
             <h3>{{ $title }}</h3>

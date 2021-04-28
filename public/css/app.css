@@ -207,3 +207,21 @@ h3 {
     display: none;
     cursor: pointer;
 }
+
+.confirm-btn{
+    width: 100%;
+}
+
+.login-form{
+    margin-top: 30%;
+    width: 60%;
+}
+
+.user-icon{
+    font-size: 48px;
+    margin-top: 8px;
+    margin-left: 13px;
+}
+.nav-item{
+    font-size: 17pt;
+}
