@@ -25,9 +25,23 @@ class OrdersController extends Controller
 
         $find = $request->input('search');
 
+
         if (isset($_GET["search"])) {
             $search = $_GET["search"];
         }
+
+        $todo_orders = DB::table('orders')
+            ->where(
+                'status',
+                '=',
+                1
+            )
+            ->where(
+                'departmentID',
+                '=',
+                Auth::user()->departmentID
+            )->get();
+
 
         $all = DB::table('orders')
             ->leftJoin('statuses', 'orders.status', '=', 'statuses.id')
@@ -84,13 +98,12 @@ class OrdersController extends Controller
         }
 
 
-
         return view(
             'orders',
             [
                 'search' => $search,
                 'title' => $page_title, 'all' => $all,
-                'user' => $user,
+                'user' => $user, 'todo_orders' => $todo_orders,
             ]
         );
     }

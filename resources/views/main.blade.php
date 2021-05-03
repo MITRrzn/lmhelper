@@ -52,12 +52,12 @@
                                     logout
                                 </span>
                             </a>
-
                             <a href="{{ route('account') }}" class="right">
                                 <span class="material-icons user-icon">
                                     account_circle
                                 </span>
                             </a>
+
                             <ul id="nav-mobile" class="left hide-on-med-and-down">
                                 <li><a href="{{ route('orders') }}" class="nav-item">Заказы</a></li>
                                 <li><a href="{{ route('grout_page') }}" class="nav-item">Затирки</a></li>
@@ -295,8 +295,8 @@
     @show
     @section('script')
     <script>
-        @if(!isset($grout_all))
-        var el = document.querySelector('.tabs');
+        @if (!isset($grout_all))
+            var el = document.querySelector('.tabs');
         var instance = M.Tabs.init(el, {});
         @endif
 
@@ -312,10 +312,10 @@
         }
 
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('.materialboxed').materialbox();
 
-            $(".article").on("click", function() {
+            $(".article").on("click", function () {
                 copyToClipboard($(this).text());
             });
 

@@ -8,10 +8,46 @@
 
 
 @section('serch-result')
-
 @endsection
 @section('dropdown')
-@parent
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+            <nav>
+                <div class="nav-wrapper indigo darken-1">
+                    <a href="{{ route('logout') }}" class="right">
+                        <span class="material-icons user-icon">
+                            logout
+                        </span>
+                    </a>
+                    <a href="{{ route('account') }}" class="right">
+                        <span class="material-icons user-icon">
+                            account_circle
+                        </span>
+                    </a>
+                    <a href="#modal2" class="right modal-trigger">
+                        @if( count($todo_orders)> 0)
+                        <div class="notifications-count">{{ count($todo_orders) }}</div>
+                        @elseif( count($todo_orders)>9)
+                        <div class="notifications-count">9+</div>
+                        @endif
+
+                        <span class="material-icons user-icon">
+                            notifications_active
+                        </span>
+                    </a>
+
+                    <ul id="nav-mobile" class="left hide-on-med-and-down">
+                        <li><a href="{{ route('orders') }}" class="nav-item">Заказы</a></li>
+                        <li><a href="{{ route('grout_page') }}" class="nav-item">Затирки</a></li>
+                        <li><a href="#" class="nav-item">Сатистика</a></li>
+
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
 @endsection
 @section('content')
 {{-- content here --}}
@@ -66,23 +102,27 @@
                     <label for="name">Клиент</label>
                 </div>
                 <div class="input-field col s6">
-                    <input placeholder="Номер телефона" id="phone" type="text" class="validate" name="phone" autocomplete="off">
+                    <input placeholder="Номер телефона" id="phone" type="text" class="validate" name="phone"
+                        autocomplete="off">
                     <label for="phone">Номер телефона</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s6">
-                    <input placeholder="Артикул" data-length="8" id="article" type="number" class="validate count" name="article" id="article" onkeyup="this.value = this.value.replace(/[^\d]/g,'');">
+                    <input placeholder="Артикул" data-length="8" id="article" type="number" class="validate count"
+                        name="article" id="article" onkeyup="this.value = this.value.replace(/[^\d]/g,'');">
                     <label for="article">ЛМ код</label>
                 </div>
                 <div class="input-field col s6">
-                    <input placeholder="Количество" id="quantity" type="number" class="validate" name="quantity" autocomplete="off" onkeyup="this.value = this.value.replace(/[^\d]/g,'');">
+                    <input placeholder="Количество" id="quantity" type="number" class="validate" name="quantity"
+                        autocomplete="off" onkeyup="this.value = this.value.replace(/[^\d]/g,'');">
                     <label for="quantity">Количество</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <input placeholder="Номер заказа/сметы" data-length="12" id="inner_order" type="number" class="validate count" name="inner_order">
+                    <input placeholder="Номер заказа/сметы" data-length="12" id="inner_order" type="number"
+                        class="validate count" name="inner_order">
                     <label for="inner_order">Номер заказа/сметы</label>
                 </div>
             </div>
@@ -100,10 +140,18 @@
 </div>
 
 
+<div id="modal2" class="modal">
+    <div class="modal-content">
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Hic at consequuntur nihil sint fugit velit praesentium
+        libero voluptas nesciunt ea? Deleniti eius sapiente expedita facere, ut in molestias quas doloribus.
+    </div>
+</div>
+
+
 <div class="container orders">
     <div class="row">
         <div class="col s12">
-            <table>
+            <table class="striped">
                 <thead>
                     <tr>
                         <th>№</th>
@@ -135,54 +183,57 @@
                             <a class="btn-small btn-floating pulse red"><i class="tiny material-icons">error</i></a>
                             @break
                             @case("Заказан")
-                            <a class="btn-small btn-floating orange lighten-1"><i class="tiny material-icons">local_shipping</i></a>
+                            <a class="btn-small btn-floating orange lighten-1"><i
+                                    class="tiny material-icons">local_shipping</i></a>
                             @break
                             @case("Приехал")
-                            <a class="btn-small btn-floating grey darken-1 "><i class="tiny material-icons">shopping_basket</i></a>
+                            <a class="btn-small btn-floating grey darken-1 "><i
+                                    class="tiny material-icons">shopping_basket</i></a>
                             @break
                             @case("Выдан")
-                            <a class="btn-small btn-floating  green "><i class="tiny material-icons">attach_money</i></a>
+                            <a class="btn-small btn-floating  green "><i
+                                    class="tiny material-icons">attach_money</i></a>
                             @break
                             @endswitch
                         </td>
 
                         <td>{{ Carbon\Carbon::parse($elem->date)->format('d.m.Y') }}</td>
-                        <td> <a href="/orders/{{ $elem->id }}_{{ $elem->article }}_{{ $elem->inner_order }}"> <i class="material-icons">info_outline</i></a></td>
+                        <td> <a href="/orders/{{ $elem->id }}_{{ $elem->article }}_{{ $elem->inner_order }}"> <i
+                                    class="material-icons">info_outline</i></a></td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
+
         </div>
     </div>
 
 </div>
-
-
-
-
-
+<div class="paginate center-align">
+    {{ $all-> links('vendor.pagination.custom')}}
+</div>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('.modal').modal();
         $('select').formSelect();
         $('#note').val('');
         M.textareaAutoResize($('#note'));
         $('.count').characterCounter();
         //hide alert window with errors on click
-        $('#error-info').click(function() {
+        $('#error-info').click(function () {
             $("#error-info").fadeOut("slow");
         });
     });
 
-    $(function() {
+    $(function () {
         $("#phone").mask("+7 (999) 999-99-99");
     });
 
 
-    $(document).ready(function() {
+    $(document).ready(function () {
 
-        $(".row").on("click", ".btn-submit", function(e) {
+        $(".row").on("click", ".btn-submit", function (e) {
             // $(".btn-submit").click(function (e) {
 
             e.preventDefault();
@@ -211,12 +262,12 @@
                     , note: note
                 },
 
-                success: function(data) {
+                success: function (data) {
                     console.log(data.error)
                     if ($.isEmptyObject(data.error)) {
                         console.log("Order added");
                         $("#addOrder")[0].reset();
-                        $("#modal1").fadeOut(800, function() {
+                        $("#modal1").fadeOut(800, function () {
                             location.reload();
                         });
                     } else {
@@ -233,7 +284,7 @@
         });
 
         function printErrorMsg(msg) {
-            $.each(msg, function(key, value) {
+            $.each(msg, function (key, value) {
                 console.log(key);
                 $('.' + key + '_err').text(value);
             });
