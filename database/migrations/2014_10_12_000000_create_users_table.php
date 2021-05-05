@@ -22,7 +22,9 @@ class CreateUsersTable extends Migration
                 $table->timestamp('email_verified_at')->nullable();
                 $table->string('password');
                 $table->string('usergroup')->default("ven");
-                $table->integer('departmentID');
+                $table->integer('departmentID')->unsigned(); // номер отдела
+                // $table->tinyInteger('shopID')->unsigned();// Номер магазина
+                // $table->tinyInteger('regionID')->unsigned(); //Номер региона
                 $table->rememberToken();
                 $table->timestamps();
             }

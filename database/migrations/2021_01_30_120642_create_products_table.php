@@ -17,10 +17,10 @@ class CreateProductsTable extends Migration
             'products',
             function (Blueprint $table) {
                 $table->increments('id')->unique();
-                $table->integer('article');
+                $table->integer('article')->unique()->unsigned();
                 $table->string('name');
-                $table->bigInteger('EAN');
-                $table->bigInteger('plant_id');
+                $table->bigInteger('EAN')->unsigned();
+                $table->bigInteger('plant_id')->unsigned();
                 $table->string('plant_name');
                 $table->integer('product_id')->unsigned();
                 $table->foreign('product_id')->references('id')->on('orders');

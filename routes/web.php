@@ -4,8 +4,20 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Encore\Admin\Form\Row;
 
-Auth::routes();
+
 // Auth routes
+// Auth::routes();
+Route::get(
+    'login',
+    'App\Http\Controllers\Auth\LoginController@showLoginForm'
+)
+    ->name('login');
+
+Route::post(
+    'login',
+    'App\Http\Controllers\Auth\LoginController@login'
+);
+
 Route::get(
     '/auth/new_user',
     'App\Http\Controllers\Auth\RegisterController@showRegistrationForm'
@@ -17,24 +29,28 @@ Route::post(
     'App\Http\Controllers\Auth\RegisterController@register'
 );
 
+// Password reset link request routes...
 Route::get(
-    '/auth/password/reset',
+    '/auth/email',
     'App\Http\Controllers\Auth\ForgotPasswordController@showLinkRequestForm'
-);
-
+)
+    ->name('password.email');
 Route::post(
-    '/auth/password/email',
+    '/auth/email',
     'App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail'
 );
 
+// Password reset routes...
 Route::get(
-    '/auth/password/reset/{token}',
+    '/auth/reset/{token}',
     'App\Http\Controllers\Auth\ResetPasswordController@showResetForm'
-);
+)
+    ->name('password.request');
 Route::post(
-    '/auth/password/reset',
-    'App\Http\Controllers\Auth\ResetPasswordController@reset'
-);
+    '/auth/reset',
+    'Auth\ResetPasswordController@postReset'
+)
+    ->name('password.reset');
 
 Route::get(
     '/logout',
@@ -52,7 +68,7 @@ Route::get(
     }
 )->name('test');
 
-Route::get('/auth', [App\Http\Controllers\HomeController::class, 'index'])->name('home'); // phpcs:disable
+// phpcs:disable
 
 
 //grouts routes

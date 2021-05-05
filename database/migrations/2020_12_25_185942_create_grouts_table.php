@@ -15,7 +15,7 @@ class CreateGroutsTable extends Migration
     {
         Schema::create('grouts', function (Blueprint $table) {
             $table->id();
-            $table->integer('article', 8);
+            $table->integer('article', 8)->unsigned();
             $table->string('name');
             $table->string('color');
             $table->string('plant');

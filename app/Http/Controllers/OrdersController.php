@@ -43,7 +43,7 @@ class OrdersController extends Controller
             )->get();
 
 
-        $all = DB::table('orders')
+        $order_list = DB::table('orders')
             ->leftJoin('statuses', 'orders.status', '=', 'statuses.id')
             ->select(
                 'orders.id',
@@ -62,7 +62,7 @@ class OrdersController extends Controller
             ->paginate(25);
 
         if ($find) {
-            $all = DB::table('orders')
+            $order_list = DB::table('orders')
                 ->leftJoin('statuses', 'orders.status', '=', 'statuses.id')
                 ->select(
                     'orders.id',
@@ -102,7 +102,7 @@ class OrdersController extends Controller
             'orders',
             [
                 'search' => $search,
-                'title' => $page_title, 'all' => $all,
+                'title' => $page_title, 'order_list' => $order_list,
                 'user' => $user, 'todo_orders' => $todo_orders,
             ]
         );

@@ -18,7 +18,6 @@ class CreateStatusesTable extends Migration
             $table->integer('status_id')->nullable()->unsigned();
             $table->string('status_value');
             $table->foreign('status_id')->references('id')->on('orders');
-            $table->timestamps();
         });
     }
 

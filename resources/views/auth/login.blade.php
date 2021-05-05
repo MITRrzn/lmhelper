@@ -46,7 +46,7 @@
                                         <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }} />
                                         <span>Запомнить меня</span>
                                     </label>
-                                    <button type="submit" class="btn btn-primary confirm-btn">
+                                    <button type="submit" class="btn btn-primary confirm-btn indigo darken-1">
                                         Войти
                                     </button>
                                 </div>
