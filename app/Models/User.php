@@ -25,6 +25,12 @@ class User extends Authenticatable
         'regionID',
     ];
 
+
+    public function departments()
+    {
+        return $this->hasOne('App\Models\departments');
+    }
+
     /**
      * The attributes that should be hidden for arrays.
      *

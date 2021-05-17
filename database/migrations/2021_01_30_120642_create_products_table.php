@@ -23,6 +23,7 @@ class CreateProductsTable extends Migration
                 $table->bigInteger('plant_id')->unsigned();
                 $table->string('plant_name');
                 $table->integer('product_id')->unsigned();
+                $table->integer('departmentID')->unsigned();
                 $table->foreign('product_id')->references('id')->on('orders');
                 $table->timestamps();
             }

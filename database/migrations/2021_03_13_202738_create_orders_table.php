@@ -27,7 +27,8 @@ class CreateOrdersTable extends Migration
                 $table->tinyInteger('status')->unsigned()->default(1);
                 $table->bigInteger('inner_order')->unsigned();
                 $table->string('created_by', 32)->nullable();
-                $table->integer("departmentID")->nullable()->unsigned();
+                $table->integer("departmentID")->unsigned();
+                // $table->integer('shopID')->unsigned();
                 $table->boolean('is_show')->default(1)->unsigned();
                 $table->dateTime('date')->default(DB::raw('CURRENT_TIMESTAMP'));
                 $table->text('note')->nullable();

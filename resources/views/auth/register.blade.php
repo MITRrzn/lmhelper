@@ -46,24 +46,11 @@
                                 <div class="input-field">
                                     <select name="departmentID" required>
                                         <option value="" disabled selected>Выберете отдел</option>
-                                        <option value="1">Стройматериалы</option>
-                                        <option value="2">Столярные изделия</option>
-                                        <option value="3">Электрика</option>
-                                        <option value="4">Инструменты</option>
-                                        <option value="5">Напольные покрытия</option>
-                                        <option value="6">Плитка</option>
-                                        <option value="7">Сантехника</option>
-                                        <option value="8">Водоснабжение</option>
-                                        <option value="9">Сад</option>
-                                        <option value="10">Скобяные изделия</option>
-                                        <option value="11">Краски</option>
-                                        <option value="12">Декор</option>
-                                        <option value="13">Свет</option>
-                                        <option value="14">Хранение</option>
-                                        <option value="15">Кухни</option>
-                                        <option value="99">B2B</option>
+                                        @foreach ($dept_list as $elem )
+                                        <option value="{{ $elem->department_number }}">{{ $elem->name }}</option>
+                                        @endforeach
                                     </select>
-                                    <label>Номер отедела</label>
+                                    <label>Отдел</label>
                                 </div>
                             </div>
                             <div class="col s4">
@@ -115,9 +102,13 @@
         </div>
     </div>
 </div>
+
+
+
 <script>
     $(document).ready(function () {
         $('select').formSelect();
     });
+
 </script>
 @endsection

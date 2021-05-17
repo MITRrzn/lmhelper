@@ -23,4 +23,9 @@ class Orders extends Model
     {
         return $this->hasOne('App\Models\statuses');
     }
+
+    public function departments()
+    {
+        return $this->hasMany('App\Models\departments');
+    }
 }

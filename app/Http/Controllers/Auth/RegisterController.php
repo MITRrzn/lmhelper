@@ -9,6 +9,8 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
+use Illuminate\Support\Facades\DB;
+
 class RegisterController extends Controller
 {
     /*
@@ -39,6 +41,25 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+    /**
+     * Generate department list for registration form
+     * 
+     */
+
+    public function index()
+    {
+
+        $dept_list = DB::table('departments')
+            ->orderBy('department_number')
+            ->get();
+
+        return view(
+            'auth.register',
+            [
+                'dept_list' => $dept_list
+            ]
+        );
     }
 
     /**

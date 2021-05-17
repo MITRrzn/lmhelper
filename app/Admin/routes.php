@@ -16,6 +16,6 @@ Route::group([
     $router->resource('grouts', GroutController::class);
     $router->resource('orders', OrdersController::class);
     $router->resource('products', ProductsController::class);
-
+    $router->resource('departments', DepartmentsController::class);
     $router->resource('reg_users', reg_user::class);
 });

@@ -17,4 +17,9 @@ class Products extends Model
     {
         return $this->belongsTo('App\Models\orders');
     }
+
+    public function departments()
+    {
+        return $this->hasOne('App\Models\departments');
+    }
 }

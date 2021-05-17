@@ -4,9 +4,9 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Encore\Admin\Form\Row;
 
+// Auth::routes(['register' => false]);
 
-// Auth routes
-// Auth::routes();
+
 Route::get(
     'login',
     'App\Http\Controllers\Auth\LoginController@showLoginForm'
@@ -20,7 +20,7 @@ Route::post(
 
 Route::get(
     '/auth/new_user',
-    'App\Http\Controllers\Auth\RegisterController@showRegistrationForm'
+    'App\Http\Controllers\Auth\RegisterController@index'
 )
     ->name('register');
 
