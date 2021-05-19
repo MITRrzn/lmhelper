@@ -22,9 +22,12 @@ class CreateUsersTable extends Migration
                 $table->timestamp('email_verified_at')->nullable();
                 $table->string('password');
                 $table->string('usergroup')->default("ven");
+                $table->integer('LDAP')->unsigned(); // LDAP пользователя
                 $table->integer('departmentID')->unsigned(); // номер отдела
-                // $table->tinyInteger('shopID')->unsigned();// Номер магазина
-                // $table->tinyInteger('regionID')->unsigned(); //Номер региона
+                $table->tinyInteger('shopID')->unsigned(); // Номер магазина
+                $table->tinyInteger('regionID')->unsigned(); //Номер региона
+                $table->integer('order_id')->unsigned()->nullable();
+                $table->foreign('order_id')->references('id')->on('orders');
                 $table->rememberToken();
                 $table->timestamps();
             }

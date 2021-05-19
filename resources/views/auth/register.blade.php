@@ -12,11 +12,11 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="name" class="col s12 col-form-label text-md-right">Имя</label>
 
-                            <div class="col s12">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
-                                    name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+
+                            <div class="col s6">
+                                <label for="name" class="col s12 col-form-label text-md-right">Имя</label>
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                                 @error('name')
                                 <span class="invalid-feedback" role="alert">
@@ -24,14 +24,18 @@
                                 </span>
                                 @enderror
                             </div>
+
+                            <div class="col s6">
+                                <label for="name" class="col s12 col-form-label text-md-right">LDAP пользователя</label>
+                                <input id="LDAP" type="text" class="form-control @error('LDAP') is-invalid @enderror" name="LDAP" value="{{ old('LDAP') }}" required>
+                            </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="email" class="col s12 col-form-label text-md-right">E-mail</label>
 
                             <div class="col s12">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                                    name="email" value="{{ old('email') }}" required autocomplete="email">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
 
                                 @error('email')
                                 <span class="invalid-feedback" role="alert">
@@ -67,9 +71,7 @@
                             <label for="password" class="col s12 col-form-label text-md-right">Пароль</label>
 
                             <div class="col s12">
-                                <input id="password" type="password"
-                                    class="form-control @error('password') is-invalid @enderror" name="password"
-                                    required autocomplete="new-password">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
 
                                 @error('password')
                                 <span class="invalid-feedback" role="alert">
@@ -84,8 +86,7 @@
                                 пароль</label>
 
                             <div class="col s12">
-                                <input id="password-confirm" type="password" class="form-control"
-                                    name="password_confirmation" required autocomplete="new-password">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
 
@@ -106,7 +107,7 @@
 
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('select').formSelect();
     });
 

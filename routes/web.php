@@ -4,8 +4,6 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Encore\Admin\Form\Row;
 
-// Auth::routes(['register' => false]);
-
 
 Route::get(
     'login',
@@ -61,12 +59,6 @@ Route::get(
 
 
 // phpcs:enable
-Route::get(
-    '/test',
-    function () {
-        return view('test');
-    }
-)->name('test');
 
 // phpcs:disable
 

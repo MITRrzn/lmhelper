@@ -23,12 +23,19 @@ class User extends Authenticatable
         'departmentID',
         'shopID',
         'regionID',
+        'LDAP',
     ];
 
 
     public function departments()
     {
         return $this->hasOne('App\Models\departments');
+    }
+
+
+    public function orders()
+    {
+        return $this->hasMany('App\Models\orders');
     }
 
     /**

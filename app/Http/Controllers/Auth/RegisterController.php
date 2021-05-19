@@ -77,6 +77,8 @@ class RegisterController extends Controller
             'departmentID' => ['required', 'integer', 'max:99'],
             'shopID' => ['required', 'integer'],
             'regionID' => ['required', 'integer'],
+            'LDAP' => ['required', 'integer'],
+
 
         ]);
     }
@@ -96,6 +98,7 @@ class RegisterController extends Controller
             'departmentID' => $data['departmentID'],
             'shopID' => $data['shopID'],
             'regionID' => $data['regionID'],
+            'LDAP' => $data['LDAP'],
         ]);
     }
 }

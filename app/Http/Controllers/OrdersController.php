@@ -131,6 +131,7 @@ class OrdersController extends Controller
             $note = $request->input('note');
             $departmentID = Auth::user()->departmentID;
             $created_by = Auth::user()->name;
+            $shopID = Auth::user()->shopID;
 
 
             DB::table('orders')->insert(
@@ -143,6 +144,7 @@ class OrdersController extends Controller
                     'note' => $note,
                     'departmentID' => $departmentID,
                     'created_by' => $created_by,
+                    'shopID' => $shopID,
                 ]
             );
 
