@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Encore\Admin\Form\Row;
 
+use App\Http\Controllers\ProjectsController;
+
 
 Route::get(
     'login',
@@ -20,12 +22,15 @@ Route::get(
     '/auth/new_user',
     'App\Http\Controllers\Auth\RegisterController@index'
 )
+    ->middleware('auth')
     ->name('register');
 
 Route::post(
     '/auth/new_user',
     'App\Http\Controllers\Auth\RegisterController@register'
-);
+)
+    ->middleware('auth')
+    ->name('register');
 
 // Password reset link request routes...
 Route::get(
@@ -105,22 +110,33 @@ Route::get(
     '/orders/{id}_{article}_{inner_order}',
     'App\Http\Controllers\OrdersController@detailOrder'
 )
+    ->middleware('auth')
     ->name('detailOrder');
 
 Route::delete(
     '/delete/{id}',
     'App\Http\Controllers\OrdersController@deleteOrder'
 )
+    ->middleware('auth')
     ->name('deleteOrder');
 
 Route::post(
     '/update/{id}',
     'App\Http\Controllers\OrdersController@updateOrder'
 )
+    ->middleware('auth')
     ->name('updateOrder');
 
 Route::get(
     '/account',
     'App\Http\Controllers\accountController@show'
 )
+    ->middleware('auth')
     ->name('account');
+
+
+Route::get(
+    '/projects',
+    [ProjectsController::class, 'show']
+)
+    ->name('projects');
